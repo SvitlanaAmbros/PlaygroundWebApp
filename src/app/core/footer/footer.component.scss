@@ -1,0 +1,21 @@
+@import '../../shared/color.constants.scss';
+
+.footer {
+    color: $white-color;
+    font-size: 16px;
+    font-weight: 600px;
+    background: $dark-grey-color;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.organization {
+    &__kpi {
+        margin: 10px 0 10px;
+        font-size: 18px;
+        font-weight: 600px;
+    }
+}
