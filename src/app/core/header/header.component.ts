@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+    public menu: string[] = [
+        'Особистий кабінет',
+        'Розклад',
+        'Актуальні квитки'
+    ];
+    
     constructor() { }
 
     ngOnInit() {

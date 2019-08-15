@@ -1,0 +1,56 @@
+@import '../../shared/color.constants.scss';
+
+.header {
+    padding: 50px 0 20px;
+    width: 200px;
+    height: calc(100vh - 90px);
+    background: $primary-color;
+    color: $white-color;
+    font-size: 18px;
+    text-align: center;
+}
+
+.user {
+    margin-bottom: 20px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+        content: '';
+        display: inline-block;
+        background: $accent-color;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-right: -40px;
+    }
+}
+
+.sidebar-menu {
+    width: 45px;
+    background: $primary-color;
+    // border-right: 2px solid $dark-primary-color;
+}
+
+.menu-wrap {
+    display: flex;
+}
+
+.menu {
+    &__item {
+        padding: 10px 0;
+        cursor: pointer;
+
+        &:hover {
+            background: $dark-primary-color;
+        }
+    }
+}
+
+.sidebar {
+    &:checked + label{
+        background: red;
+    }
+}
