@@ -1,0 +1,32 @@
+.schedule {
+    padding: 40px 0;
+
+    &-row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+.book {
+    font-size: 14px;
+    padding: 10px 20px;;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &_free {
+        background: #0d930d;
+
+        &:hover {
+            background:#077207;
+        }
+    }
+
+    &_no-place {
+        background: #f34646;
+    }
+} 
