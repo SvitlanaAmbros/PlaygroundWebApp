@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleItemComponent } from './schedule-item/schedule-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   declarations: [
-    ScheduleComponent
+    ScheduleComponent,
+    ScheduleItemComponent
   ],
   exports: [
-    ScheduleComponent
+    ScheduleComponent,
   ]
 })
 export class ScheduleModule { }

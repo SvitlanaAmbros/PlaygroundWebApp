@@ -1,0 +1,37 @@
+@import '../../shared/color.constants.scss';
+
+.item {
+    padding: 2px;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid #ddffdd;
+
+    &__day {
+        padding: 10px 0;
+        border-radius: 5px 5px 0 0;
+        font-size: 18px;
+        font-weight: 600;
+        background: #cbf9cb;
+    }
+
+    &__events {
+        padding: 2px 0;
+    }
+
+    &__events-title {
+        margin: 5px 0;
+    }
+
+    &__events-time {
+        padding: 10px 0;
+        background: $light-grey-color;
+        font-size: 14px;
+        font-weight: 600;
+        // margin-bottom: 10px;
+    }
+
+    &__events-type {
+        padding: 5px 0;
+        // margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,24 @@
+@import '../../../shared/color.constants.scss';
+
+.book {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: $white-color;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &_free {
+        background: $book-btn-color;
+
+        &:hover {
+            background: $book-btn-active-color;
+        }
+    }
+
+    &_no-place {
+        // background: $no-available-btn-color;
+    }
+} 

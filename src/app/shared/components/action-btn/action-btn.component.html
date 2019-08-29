@@ -1,0 +1,11 @@
+<button class="book" 
+  [ngClass]="isAvailable ? 'book_free' : 'book_no-place'" 
+  [disabled]="!isAvailable">
+    <div class="" *ngIf="isAvailable">
+      {{ availableMessage}}
+    </div>
+    <div class="" *ngIf="!isAvailable">
+      {{ noAvailableMessage}}
+    </div>
+</button>
+

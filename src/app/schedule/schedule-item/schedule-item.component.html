@@ -1,0 +1,29 @@
+<div class="item">
+    <div class="item__day">
+        Monday
+    </div>
+    <div class="item__events">
+        <div class="item__events-title">
+            <div class="item__events-time">
+                12.00-13.00
+            </div>
+            <div class="item__events-type">
+                Футбол
+            </div>
+        </div>
+        <app-action-btn [isAvailable]="isAvailable" [availableMessage]="'Забронювати'" [noAvailableMessage]="'Нема місць'">
+        </app-action-btn>
+    </div>
+    <div class="item__events">
+        <div class="item__events-title">
+            <div class="item__events-time">
+                12.00-13.00
+            </div>
+            <div class="item__events-type">
+                Футбол
+            </div>
+        </div>
+        <app-action-btn [isAvailable]="true" [availableMessage]="'Забронювати'" [noAvailableMessage]="'Нема місць'">
+        </app-action-btn>
+    </div>
+</div>
