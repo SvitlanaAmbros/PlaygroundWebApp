@@ -31,11 +31,18 @@
         border-radius: 50%;
         width: 40px;
         height: 40px;
-
-        
     }
 
     &:hover:before {
         background: $dark-accent-color;
     }
+
+    &__login {
+        margin: 0 20px;
+    }
+}
+
+.title {
+    margin-right: 100px;
+    font-size: 22px;
 }

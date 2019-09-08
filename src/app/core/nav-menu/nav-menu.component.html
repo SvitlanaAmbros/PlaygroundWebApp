@@ -1,7 +1,8 @@
 <div class="menu-wrap">
     <ul class="menu">
         <li *ngFor="let item of menu" class="menu__item">
-            <a [routerLink]="item.url" routerLinkActive="class1">{{ item.title }}</a>
+            <a [routerLink]="item.url" 
+                routerLinkActive="menu__item_active">{{ item.title }}</a>
         </li>
     </ul>
 </div>

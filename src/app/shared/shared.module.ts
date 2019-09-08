@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActionBtnComponent } from './components/action-btn/action-btn.component';
+import { LocalStorageService } from './services/local-storage.service';
 
 @NgModule({
   imports: [
@@ -8,6 +9,9 @@ import { ActionBtnComponent } from './components/action-btn/action-btn.component
   ],
   declarations: [
     ActionBtnComponent
+  ],
+  providers: [
+    LocalStorageService
   ],
   exports: [
     ActionBtnComponent
