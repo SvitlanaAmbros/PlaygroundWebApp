@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Rubik', sans-serif;
 }
 
 ul {
@@ -16,4 +17,28 @@ div {
 .container {
     margin: auto;
     width: 1000px;
+}
+
+input {
+    padding: 6px;
+}
+
+a {
+    text-decoration: none;
+
+    // &:link {
+    //     text-decoration: none;
+    // }
+
+    // &:visited {
+    //     text-decoration: none;
+    // }
+    
+    // &:hover {
+    //     text-decoration: none;
+    // }
+    
+    // &:active {
+    //     text-decoration: none;
+    // }
 }

@@ -1,5 +1,9 @@
 @import '../../shared/color.constants.scss';
 
+a {
+    color: $white-color;
+}
+
 .menu {
     display: flex;
     justify-content: space-around;
@@ -13,21 +17,24 @@
     &__item {
         cursor: pointer;
         position: relative;
+        color:white;
+    }
+}
 
-        &:hover {
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                // text-align: center;
-                left: 0; 
-                right: 0; 
-                margin: 4px auto; 
-                width: 50px;
-                height: 2px;
-                background: $dark-primary-color;
-            }
-          
-        }
+
+.class1 {
+
+
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        // text-align: center;
+        left: 0; 
+        right: 0; 
+        margin: 4px auto; 
+        width: 50px;
+        height: 2px;
+        background: $accent-color;
     }
 }

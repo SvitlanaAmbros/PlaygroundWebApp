@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 import { TicketsComponent } from './tickets/tickets.component';
+
+const routes: Routes = [
+  {
+    path: 'tickets',
+    component: TicketsComponent
+  }
+];
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forRoot(routes)
   ],
   declarations: [
     TicketsComponent,
   ],
   exports: [
-    TicketsComponent
+    TicketsComponent,
+    RouterModule
   ]
 })
 export class TicketsModule { }

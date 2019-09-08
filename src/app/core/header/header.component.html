@@ -1,14 +1,10 @@
 <div class="header-wrap">
-    <!-- <input type="checkbox" id="sidebar" class="sidebar" >
-    <label for="sidebar">X</label> -->
-    <!-- <div class="sidebar-menu">
-    </div> -->
     <div class="container">
         <div class="header">
             <div class="menu">
                 <app-nav-menu></app-nav-menu>
             </div>
-            <div class="user">
+            <div class="user" (click)="navigateToLoginPage()">
                 <i class="fa fa-user"></i>
             </div>
         </div>

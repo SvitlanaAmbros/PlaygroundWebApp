@@ -1,6 +1,7 @@
-<button class="book" 
-  [ngClass]="isAvailable ? 'book_free' : 'book_no-place'" 
-  [disabled]="!isAvailable">
+<button class="action-btn" 
+  [ngClass]="isAvailable ? 'available' : 'no-available'" 
+  [disabled]="!isAvailable"
+  (click)="clicked()">
     <div class="" *ngIf="isAvailable">
       {{ availableMessage}}
     </div>

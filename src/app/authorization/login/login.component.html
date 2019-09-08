@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<div class="form">
+  <p class="form__title">{{ title }}</p>
+  <form #f="ngForm"> 
+    <div class="form__row">
+      <label for="login" class="form__label">Login ( Your Email )</label>
+      <input type="text" 
+        id="login" 
+        class="form__value" 
+        name="login"
+        required>
+    </div>
+    <div class="form__row">
+      <label for="password" class="form__label">Password</label>
+      <input type="password" 
+        id="password"  
+        class="form__value"
+        name="password"
+        required>
+    </div>
+    
+    <app-action-btn 
+      [availableMessage]="'Log in'" 
+      (onClick)="login()" 
+      [isAvailable]="true"></app-action-btn>
+  </form>
+</div>

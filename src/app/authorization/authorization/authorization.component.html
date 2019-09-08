@@ -1,0 +1,12 @@
+<div class="authorization-wrap">
+  <div class="authorization">
+    <div class="authorization__menu menu">
+      <div class="menu__item" *ngFor="let item of menu"  routerLinkActive="active" (click)="navigateTo(item)">
+        <a [routerLink]="item.url">{{ item.title }}</a>
+      </div>
+    </div>
+    <div class="authorization__content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

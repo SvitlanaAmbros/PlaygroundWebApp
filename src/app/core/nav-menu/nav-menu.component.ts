@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-nav-menu',
@@ -6,14 +7,22 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent implements OnInit {
-    public menu: string[] = [
-        'Особистий кабінет',
-        'Розклад',
-        'Актуальні квитки'
+    public menu = [ 
+        {
+            title: 'Особистий кабінет',
+            url: 'personal-user-info'
+        }, 
+        {
+            title: 'Розклад',
+            url: 'schedule'
+        }, 
+        {
+            title: 'Актуальні квитки',
+            url: 'tickets'
+        }  
     ];
     constructor() { }
 
     ngOnInit() {
     }
-
 }

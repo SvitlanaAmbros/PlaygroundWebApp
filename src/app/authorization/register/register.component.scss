@@ -1,0 +1,48 @@
+@import '../../shared/color.constants.scss';
+
+.form {
+    padding: 10px 50px 50px;
+
+    &__row {
+        margin: 15px 0; 
+    }
+
+    &__label {
+        padding-bottom: 4px;
+        color: $middle-grey-color;
+        display: block;
+    }
+
+    &__value {
+        width: 230px;
+    }
+
+    &__title {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    &__student-checkbox {
+        display: inline-block;
+
+        & ~ .form__label  {
+            display: none;
+        }
+
+        & ~ .form__student-ticket {
+            display: none;
+        }
+
+        &:checked {
+            & ~ .form__label  {
+                margin-top: 15px;
+                display: block;
+                color: $middle-grey-color;
+            }
+
+            & ~ .form__student-ticket  {
+                display: block;
+            }
+        }
+    }
+}

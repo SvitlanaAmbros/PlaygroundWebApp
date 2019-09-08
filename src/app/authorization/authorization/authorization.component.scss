@@ -1,0 +1,40 @@
+@import '../../shared/color.constants.scss';
+
+.authorization {
+    background: $white-color;
+    box-shadow: 10px 10px 10px $grey-color;
+    
+    &-wrap {
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+        background: $light-grey-color;
+    }
+
+    &__menu {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.menu {
+    &__item {
+        width: 50%;
+        padding: 20px 0;
+        text-align: center;
+        border: 1px solid $light-grey-color;
+        cursor: pointer;
+    }
+}
+
+.active {
+    background: $light-primary-color;
+
+    a {
+        text-decoration: none;
+        font-weight: 600;
+        color: $white-color;
+    }
+}

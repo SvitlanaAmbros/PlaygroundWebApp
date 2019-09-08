@@ -11,6 +11,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { PersonalInfoModule } from './personal-info/personal-info.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { TicketsModule } from './tickets/tickets.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TicketsModule } from './tickets/tickets.module';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
+    AuthorizationModule,
     PersonalInfoModule,
     ScheduleModule,
     TicketsModule

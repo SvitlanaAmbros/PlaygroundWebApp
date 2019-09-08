@@ -21,14 +21,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     &:before {
         content: '';
         display: inline-block;
-        margin: 3px -30px 0 0;
+        margin: 3px -31px 0 0;
         background: $accent-color;
         border-radius: 50%;
         width: 40px;
         height: 40px;
+
+        
+    }
+
+    &:hover:before {
+        background: $dark-accent-color;
     }
 }

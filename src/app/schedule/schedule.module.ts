@@ -3,11 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ScheduleItemComponent } from './schedule-item/schedule-item.component';
 import { SharedModule } from '../shared/shared.module';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'schedule',
+    component: ScheduleComponent
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forRoot(routes)
   ],
   declarations: [
     ScheduleComponent,
@@ -15,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
   exports: [
     ScheduleComponent,
+    RouterModule
   ]
 })
 export class ScheduleModule { }
