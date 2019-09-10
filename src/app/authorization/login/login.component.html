@@ -1,12 +1,13 @@
 <div class="form">
   <p class="form__title">{{ title }}</p>
-  <form #f="ngForm"> 
+  <form #form="ngForm"> 
     <div class="form__row">
       <label for="login" class="form__label">Login ( Your Email )</label>
       <input type="text" 
         id="login" 
         class="form__value" 
         name="login"
+        [(ngModel)]="user.login"
         required>
     </div>
     <div class="form__row">
@@ -15,12 +16,14 @@
         id="password"  
         class="form__value"
         name="password"
+        [(ngModel)]="user.password"
         required>
     </div>
     
     <app-action-btn 
-      [availableMessage]="'Log in'" 
+      [availableMessage]="'Log in'"
+      [noAvailableMessage]="'Log in'"
       (onClick)="login()" 
-      [isAvailable]="true"></app-action-btn>
+      [isAvailable]="form.valid"></app-action-btn>
   </form>
 </div>

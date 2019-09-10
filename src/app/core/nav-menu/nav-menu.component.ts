@@ -7,21 +7,20 @@ import { Router } from '@angular/router';
     styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent implements OnInit {
-    public menu = [ 
+    public menu = [
         {
             title: 'Особистий кабінет',
             url: 'personal-user-info'
-        }, 
+        },
         {
             title: 'Розклад',
             url: 'schedule'
-        }, 
+        },
         {
             title: 'Актуальні квитки',
             url: 'tickets'
-        }  
+        }
     ];
-    
     constructor() { }
 
     ngOnInit() {

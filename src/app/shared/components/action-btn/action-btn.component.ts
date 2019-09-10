@@ -10,9 +10,9 @@ import { Component,
   styleUrls: ['./action-btn.component.scss']
 })
 export class ActionBtnComponent implements OnInit {
-  @Input() isAvailable: boolean = true;
-  @Input() availableMessage: string = 'Order';
-  @Input() noAvailableMessage: string = 'Disabled';
+  @Input() isAvailable = true;
+  @Input() availableMessage = 'Order';
+  @Input() noAvailableMessage = 'Disabled';
 
   @Output() onClick = new EventEmitter();
 
