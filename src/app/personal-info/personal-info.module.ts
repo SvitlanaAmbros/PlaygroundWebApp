@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PersonalInfoComponent } from './personal-info/personal-info.component';
+
+import { PersonalInfoComponent } from '@personal-info/personal-info/personal-info.component';
+import { PersonalInfoService } from '@personal-info/services/personal-info.service';
 
 const routes: Routes = [
   {
@@ -17,6 +19,9 @@ const routes: Routes = [
   ],
   declarations: [
     PersonalInfoComponent
+  ],
+  providers: [
+    PersonalInfoService
   ],
   exports: [
     PersonalInfoComponent,

@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { LocalStorageService } from './shared/services/local-storage.service';
 import { Subscription } from 'rxjs/Subscription';
-import { UserInfoService } from './shared/services/user-info.service';
+
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { UserInfoService } from '@shared/services/user-info.service';
+import { LoginUserInfo } from '@shared/models/login-user-info.model';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +14,16 @@ import { UserInfoService } from './shared/services/user-info.service';
 export class AppComponent implements OnInit{
   title = 'app';
 
-  user = {
+  user: LoginUserInfo = {
     login: '',
     password: '',
     isAuthenticated: false
-  }
+  };
+
   subscription: Subscription;
 
-  constructor(private localStorage: LocalStorageService, 
-      private userService: UserInfoService){}
+  constructor(private localStorage: LocalStorageService,
+    private userService: UserInfoService) { }
 
   ngOnInit(): void {
     this.subscription = this.userService.getUserInfo().subscribe(user => { this.user = user; });
@@ -32,5 +35,4 @@ export class AppComponent implements OnInit{
     // this.user.password = this.localStorage.getFromLocalStorage('password');
     // this.user.isAuthenticated = this.localStorage.getFromLocalStorage('isAuthenticated');
   }
-  
 }

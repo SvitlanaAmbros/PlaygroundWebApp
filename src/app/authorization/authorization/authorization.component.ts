@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { authorizationMenu } from './authorization.model';
+
+import { authorizationMenu } from '@authorization/models/authorization.model';
 
 @Component({
   selector: 'app-authorization',

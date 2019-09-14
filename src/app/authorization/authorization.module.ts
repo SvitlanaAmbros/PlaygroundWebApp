@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthorizationComponent } from './authorization/authorization.component';
-import { SharedModule } from '../shared/shared.module';
+
+import { LoginComponent } from '@authorization/login/login.component';
+import { RegisterComponent } from '@authorization/register/register.component';
+import { AuthorizationComponent } from '@authorization/authorization/authorization.component';
+import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [
   {

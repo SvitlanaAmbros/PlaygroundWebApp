@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
-import { UserInfoService } from '../../shared/services/user-info.service';
-import { UserInfo } from '../../shared/model/user-info.model';
+
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { UserInfoService } from '@shared/services/user-info.service';
+import { LoginUserInfo } from '@shared/models/login-user-info.model';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,8 @@ import { UserInfo } from '../../shared/model/user-info.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public title = 'Авторизуватись';
-  public user: UserInfo = {
+  public title = 'Log in';
+  public user: LoginUserInfo = {
     login: 'Svitlana',
     password: '1234',
     isAuthenticated: true

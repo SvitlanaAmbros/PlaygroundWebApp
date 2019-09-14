@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./schedule-item.component.scss']
 })
 export class ScheduleItemComponent implements OnInit {
-    @Input() isAvailable: boolean = false;
+    @Input() isAvailable = false;
     constructor() { }
 
     ngOnInit() {

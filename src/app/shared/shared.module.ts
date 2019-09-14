@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActionBtnComponent } from './components/action-btn/action-btn.component';
-import { LocalStorageService } from './services/local-storage.service';
-import { UserInfoService } from './services/user-info.service';
+
+import { ActionBtnComponent } from '@shared/components/action-btn/action-btn.component';
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { UserInfoService } from '@shared/services/user-info.service';
 
 @NgModule({
   imports: [

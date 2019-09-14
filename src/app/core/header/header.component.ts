@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserInfoService } from '../../shared/services/user-info.service';
-import { UserInfo } from '../../shared/model/user-info.model';
+import { UserInfoService } from '@shared/services/user-info.service';
+import { LoginUserInfo } from '@app/shared/models/login-user-info.model';
 
 @Component({
     selector: 'app-header',
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigateByUrl('/authorization');
 
         if (this.isAuthenticated) {
-            let user: UserInfo = {
+            const user: LoginUserInfo = {
                 login: undefined,
                 password: undefined,
                 isAuthenticated: false

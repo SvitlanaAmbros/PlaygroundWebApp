@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { UserInfo } from '../model/user-info.model';
+import { LoginUserInfo } from '@shared/models/login-user-info.model';
 
 @Injectable()
 export class UserInfoService {
-  private subject = new Subject<UserInfo>();
+  private subject = new Subject<LoginUserInfo>();
 
   constructor() { }
 
-  public updateUserInfo(user: UserInfo): void {
+  public updateUserInfo(user: LoginUserInfo): void {
     this.subject.next(user);
   }
 
-  public getUserInfo(): Observable<UserInfo> {
+  public getUserInfo(): Observable<LoginUserInfo> {
     return this.subject.asObservable();
   }
 
