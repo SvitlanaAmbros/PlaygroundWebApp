@@ -1,0 +1,32 @@
+@import '../../shared/color.constants.scss';
+
+.personal-info {
+    padding: 30px;
+    background: $white-color;
+    box-shadow: 10px 10px 10px $grey-color;
+    min-height: 75vh;
+
+    &-wrap {
+        padding: 10px 30px;
+        border: 2px solid $dark-primary-color;
+        background: $light-grey-color;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__btn {
+        width: 100px;
+    }
+}
+
+.row {
+    padding: 10px 0;
+
+    & span {
+        padding-left: 10px;
+    }
+}
+

@@ -4,11 +4,12 @@
     padding: 30px;
     background: $white-color;
     box-shadow: 10px 10px 10px $grey-color;
+    min-height: 75vh;
 
     &-wrap {
         padding: 10px 30px;
         border: 2px solid $dark-primary-color;
-        background: $light-grey-color;
+        background: $light-grey-color; 
     }
 
     &-row {

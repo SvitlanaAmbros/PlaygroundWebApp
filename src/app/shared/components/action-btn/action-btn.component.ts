@@ -13,16 +13,16 @@ export class ActionBtnComponent implements OnInit {
   @Input() isAvailable = true;
   @Input() availableMessage = 'Order';
   @Input() noAvailableMessage = 'Disabled';
-
-  @Output() onClick = new EventEmitter();
+  @Input() hasBorder = false;
+  @Output() clicked = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  public clicked(): void {
-    this.onClick.emit(null);
+  public onClick(): void {
+    this.clicked.emit(null);
   }
 
 }

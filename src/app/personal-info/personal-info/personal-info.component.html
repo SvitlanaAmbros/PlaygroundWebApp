@@ -1,10 +1,75 @@
-<div>
-  <p>Personal Info</p>
-  <div>
-    <p>{{ user.name }}</p>
-    <p>{{ user.surname }}</p>
-    <p>{{ user.login }}</p>
-    <p>{{ user.password }}</p>
-    <p>{{ user.studentsTicket }}</p>
+<div class="personal-info-wrap">
+  <div class="container">
+    <div class="personal-info">
+      <div class="personal-info__header">
+        <p>Personal Info</p>
+        <app-action-btn *ngIf="!isEdited" 
+            class="personal-info__btn"
+            [availableMessage]="'Edit'" 
+            [hasBorder]="true"
+            (clicked)="editPersonalInfo()"></app-action-btn>
+        <app-action-btn *ngIf="isEdited" 
+            class="personal-info__btn"
+            [availableMessage]="'Save'" 
+            (clicked)="savePersonalInfo()"></app-action-btn>
+      </div>
+      <div *ngIf="!isEdited">
+        <div class="row">
+          <label for="name" class="form__label">Name: </label>
+          <span>{{ user.name }}</span>
+        </div>
+        <div class="row">
+          <label for="surname" class="form__label">Surname: </label>
+          <span>{{ user.surname }}</span>
+        </div>
+        <div class="row">
+          <label for="login" class="form__label">Login ( Your Email ): </label>
+          <span>{{ user.login }}</span>
+        </div>
+        <div class="row">
+          <label for="password" class="form__label">Password: </label>
+          <span>{{ user.password }}</span>
+        </div>
+        <div class="row">
+          <label for="student-ticket" class="form__label">Student`s Ticket: </label>
+          <span>{{ user.studentsTicket }}</span>
+        </div>
+      </div>
+      <div *ngIf="isEdited">
+        <div class="form">
+          <p class="form__title">{{ title }}</p>
+          <form autocomplete="off">
+            <div class="form__row">
+              <label for="name" class="form__label">Name</label>
+              <input type="text" id="name" class="form__value">
+            </div>
+            <div class="form__row">
+              <label for="surname" class="form__label">Surname</label>
+              <input type="password" id="surname" class="form__value">
+            </div>
+            <div class="form__row">
+              <label for="login" class="form__label">Login ( Your Email )</label>
+              <input type="text" id="login" class="form__value">
+            </div>
+            <div class="form__row">
+              <label for="password" class="form__label">Password</label>
+              <input type="password" id="password" class="form__value">
+            </div>
+            <div class="form__row">
+              <label for="confirm-password" class="form__label">Confirm Password</label>
+              <input type="password" id="confirm-password" class="form__value">
+            </div>
+            <div class="form__row">
+              <input type="checkbox" id="student" class="form__student-checkbox">
+              <label for="student">Student</label>
+              <label for="student-ticket" class="form__label">Student`s Ticket</label>
+              <input type="text" id="student-ticket" class="form__value form__student-ticket">
+            </div>
+
+            <!-- <app-action-btn [availableMessage]="'Log in'"></app-action-btn> -->
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -11,10 +11,22 @@
     cursor: pointer;
 
     &.available {
-        background: $book-btn-color;
+        &_border {
+            color: $black-color;
+            background: $white-color;
+            border: 2px solid $book-btn-color;
 
-        &:hover {
-            background: $book-btn-active-color;
+            &:hover {
+                border: 2px solid $book-btn-active-color;
+            }
+        }
+
+        &_background {
+            background: $book-btn-color;
+
+            &:hover {
+                background: $book-btn-active-color;
+            }
         }
     }
 

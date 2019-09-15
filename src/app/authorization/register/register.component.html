@@ -28,7 +28,6 @@
       <input type="text" id="student-ticket" class="form__value form__student-ticket">
     </div>
 
-    <app-action-btn [availableMessage]="'Log in'"></app-action-btn>
-    <!-- <button type="submit">Log In</button> -->
+    <app-action-btn [availableMessage]="'Log in'" (clicked)="register()"></app-action-btn>
   </form>
 </div>
