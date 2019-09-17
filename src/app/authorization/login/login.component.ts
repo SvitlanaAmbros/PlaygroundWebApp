@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private localStorage: LocalStorageService,
-    private ref: ChangeDetectorRef,
     private userService: UserInfoService) { }
 
   ngOnInit() {

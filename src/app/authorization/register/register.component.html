@@ -1,19 +1,32 @@
 <div class="form">
   <p class="form__title">{{ title }}</p>
-  <form autocomplete="off">
+  <form autocomplete="off" [formGroup]="form">
     <div class="form__row">
       <label for="name" class="form__label">Name</label>
-      <input type="text" id="name" class="form__value">
+      <input type="text" id="name" class="form__value" formControlName="name" [(ngModel)]="user.name">
+      <div *ngIf="!form.controls['name'].valid 
+        && (form.controls['name'].dirty ||form.controls['name'].touched)" class="form__error-message">
+          <div *ngIf="form.controls['name'].errors.required">* Name is required</div>
+      </div>
     </div>
     <div class="form__row">
       <label for="surname" class="form__label">Surname</label>
-      <input type="password" id="surname" class="form__value">
+      <input type="text" id="surname" class="form__value" formControlName="surname" [(ngModel)]="user.surname">
+      <div *ngIf="!form.controls['surname'].valid 
+        && (form.controls['surname'].dirty ||form.controls['surname'].touched)" class="form__error-message">
+          <div *ngIf="form.controls['surname'].errors.required">* Surname Name is required</div>
+      </div>
     </div>
     <div class="form__row">
       <label for="login" class="form__label">Login ( Your Email )</label>
-      <input type="text" id="login" class="form__value">
+      <input type="text" id="login" class="form__value" formControlName="login" [(ngModel)]="user.login">
+      <div *ngIf="!form.controls['login'].valid 
+        && (form.controls['login'].dirty ||form.controls['login'].touched)" class="form__error-message">
+          <div *ngIf="form.controls['login'].errors.required">* Login is required</div>
+          <div *ngIf="form.controls['login'].errors.pattern">Not right Email format</div>
+      </div>
     </div>
-    <div class="form__row">
+    <!-- <div class="form__row">
       <label for="password" class="form__label">Password</label>
       <input type="password" id="password" class="form__value">
     </div>
@@ -26,8 +39,11 @@
       <label for="student">Student</label>
       <label for="student-ticket" class="form__label">Student`s Ticket</label>
       <input type="text" id="student-ticket" class="form__value form__student-ticket">
-    </div>
-
-    <app-action-btn [availableMessage]="'Log in'" (clicked)="register()"></app-action-btn>
+    </div> -->
+    <app-action-btn 
+      [availableMessage]="'Log in'"
+      [noAvailableMessage]="'Log in'"
+      [isAvailable]="form.valid"
+      (clicked)="register()"></app-action-btn>
   </form>
 </div>

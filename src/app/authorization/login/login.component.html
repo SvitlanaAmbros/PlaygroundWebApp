@@ -1,6 +1,6 @@
 <div class="form">
   <p class="form__title">{{ title }}</p>
-  <form #form="ngForm"> 
+  <form #form="ngForm" novalidate> 
     <div class="form__row">
       <label for="login" class="form__label">Login ( Your Email )</label>
       <input type="text" 
@@ -9,6 +9,13 @@
         name="login"
         [(ngModel)]="user.login"
         required>
+        <!-- <div *ngIf="form.submitted && login.invalid" class="invalid-feedback">
+          <div *ngIf="login.errors.required">Login is required</div>
+        </div> -->
+        <div *ngIf="!login.valid 
+          && (login.dirty ||login.touched)" class="form__error-message">
+            <div *ngIf="login.errors.required">* Surname Name is required</div>
+        </div>
     </div>
     <div class="form__row">
       <label for="password" class="form__label">Password</label>

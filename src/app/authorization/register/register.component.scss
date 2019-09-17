@@ -22,6 +22,12 @@
         text-align: center;
     }
 
+    &__error-message {
+        margin-top: 10px;
+        font-size: 14px;
+        color: $error-color;
+    }
+
     &__student-checkbox {
         display: inline-block;
 
