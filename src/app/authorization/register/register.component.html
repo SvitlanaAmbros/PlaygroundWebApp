@@ -4,42 +4,53 @@
     <div class="form__row">
       <label for="name" class="form__label">Name</label>
       <input type="text" id="name" class="form__value" formControlName="name" [(ngModel)]="user.name">
-      <div *ngIf="!form.controls['name'].valid 
-        && (form.controls['name'].dirty ||form.controls['name'].touched)" class="form__error-message">
+      <div *ngIf="!!form.controls['name'] && isInputValid('name')" class="form__error-message">
           <div *ngIf="form.controls['name'].errors.required">* Name is required</div>
       </div>
     </div>
     <div class="form__row">
       <label for="surname" class="form__label">Surname</label>
       <input type="text" id="surname" class="form__value" formControlName="surname" [(ngModel)]="user.surname">
-      <div *ngIf="!form.controls['surname'].valid 
-        && (form.controls['surname'].dirty ||form.controls['surname'].touched)" class="form__error-message">
+      <div *ngIf="!!form.controls['surname'] && isInputValid('surname')" class="form__error-message">
           <div *ngIf="form.controls['surname'].errors.required">* Surname Name is required</div>
       </div>
     </div>
     <div class="form__row">
       <label for="login" class="form__label">Login ( Your Email )</label>
       <input type="text" id="login" class="form__value" formControlName="login" [(ngModel)]="user.login">
-      <div *ngIf="!form.controls['login'].valid 
-        && (form.controls['login'].dirty ||form.controls['login'].touched)" class="form__error-message">
+      <div *ngIf="!!form.controls['login'] && isInputValid('login')" class="form__error-message">
           <div *ngIf="form.controls['login'].errors.required">* Login is required</div>
           <div *ngIf="form.controls['login'].errors.pattern">Not right Email format</div>
       </div>
     </div>
-    <!-- <div class="form__row">
+    <div class="form__row">
       <label for="password" class="form__label">Password</label>
-      <input type="password" id="password" class="form__value">
+      <input type="password" id="password" class="form__value" formControlName="password" [(ngModel)]="user.password">
+      <div *ngIf="!!form.controls['password'] && isInputValid('password')" class="form__error-message">
+        <div *ngIf="form.controls['password'].errors.required">* Password is required</div>
+        <!-- <div *ngIf="form.controls['password'].errors.pattern">Not right password format</div> -->
+      </div>
     </div>
     <div class="form__row">
       <label for="confirm-password" class="form__label">Confirm Password</label>
-      <input type="password" id="confirm-password" class="form__value">
+      <input type="confirmPassword" id="confirm-password" class="form__value" 
+        formControlName="confirmPassword" [(ngModel)]="user.confirmPassword">
+      <div *ngIf="!!form.controls['сonfirmPassword'] && isInputValid('сonfirmPassword')" 
+          class="form__error-message">
+        <div *ngIf="form.controls['сonfirmPassword'].errors.required">* Confirm Password is required</div>
+        <!-- <div *ngIf="form.controls['сonfirmPassword'].errors.pattern">Not right  password format</div> -->
+      </div>
     </div>
     <div class="form__row">
-      <input type="checkbox" id="student" class="form__student-checkbox">
+      <input type="checkbox" id="student" class="form__student-checkbox" 
+          [(ngModel)]="user.isStudent" formControlName="isStudent" (change)="isStudent(user.isStudent)">
       <label for="student">Student</label>
       <label for="student-ticket" class="form__label">Student`s Ticket</label>
-      <input type="text" id="student-ticket" class="form__value form__student-ticket">
-    </div> -->
+      <input type="text" id="student-ticket" class="form__value form__student-ticket"
+      formControlName="studentTicket" [(ngModel)]="user.studentTicket">
+    </div>
+
+    {{user.studentTicket}}
     <app-action-btn 
       [availableMessage]="'Log in'"
       [noAvailableMessage]="'Log in'"
