@@ -14,22 +14,22 @@
         background: #cbf9cb;
     }
 
-    &__events {
+    &-event {
         padding: 2px 0;
-    }
 
-    &__events-title {
-        margin: 5px 0;
-    }
+        &__title {
+            margin: 5px 0;
+        }
 
-    &__events-time {
-        padding: 10px 0;
-        background: $light-grey-color;
-        font-size: 14px;
-        font-weight: 600;
-    }
+        &__time {
+            padding: 10px 0;
+            background: $light-grey-color;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-    &__events-type {
-        padding: 5px 0;
+        &__type {
+            padding: 5px 0;
+        } 
     }
 }

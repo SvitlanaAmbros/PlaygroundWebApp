@@ -1,20 +1,29 @@
-<div class="item">
+<div class="item" *ngIf="!!data">
     <div class="item__day">
-        Monday
+        <div>
+            {{ data.dateUI | date: 'd.MM.yyyy' }}
+        </div>
+        <div>
+            {{ data.dateUI | date: 'EEEE' }}
+        </div>
     </div>
-    <div class="item__events">
-        <div class="item__events-title">
-            <div class="item__events-time">
-                12.00-13.00
+    <div class="item-event" *ngFor="let event of data.events">
+        <div class="item-event__title">
+            <div class="item-event__time">
+                {{ event.startTime }} - {{event.endTime }}
             </div>
-            <div class="item__events-type">
-                Футбол
+            <div class="item-event__type">
+                {{ event.sportType }}
             </div>
         </div>
-        <app-action-btn [isAvailable]="isAvailable" [availableMessage]="'Забронювати'" [noAvailableMessage]="'Нема місць'">
+        <app-action-btn 
+            [isAvailable]="event.emptyPlaceCount > 0" 
+            [availableMessage]="'Забронювати'"
+            [noAvailableMessage]="'Нема місць'"
+            (clicked)="bookEvent(event)">
         </app-action-btn>
     </div>
-    <div class="item__events">
+    <!-- <div class="item__events">
         <div class="item__events-title">
             <div class="item__events-time">
                 12.00-13.00
@@ -25,5 +34,5 @@
         </div>
         <app-action-btn [isAvailable]="true" [availableMessage]="'Забронювати'" [noAvailableMessage]="'Нема місць'">
         </app-action-btn>
-    </div>
+    </div> -->
 </div>

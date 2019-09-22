@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { ScheduleDay } from '@schedule/models/schedule-day.model';
+import { ScheduleService } from '@schedule/services/schedule.service';
 
 @Component({
     selector: 'app-schedule',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
 
-    constructor() { }
+    public scheduleData: Observable<ScheduleDay[]>;
+    constructor(private scheduleService: ScheduleService) { }
 
     ngOnInit() {
+        this.scheduleData = this.scheduleService.getScheduleForPeriod(2);
     }
 
 }
