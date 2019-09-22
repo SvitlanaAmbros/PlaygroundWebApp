@@ -10,29 +10,27 @@ export class NotificationService {
 
   constructor() { }
 
-  public getAlert(): Observable<any> {
+  public getNotification(): Observable<any> {
     return this.subject.asObservable();
-    // return this.subject.asObservable().filter((x: Alert) => x && x.alertId === alertId);
   }
 
   public success(message: string) {
-    this.alert(new Notification({ message, type: NotificationType.Success }));
+    this.addNotification(new Notification({ message, type: NotificationType.Success }));
   }
 
   public error(message: string) {
-    this.alert(new Notification({ message, type: NotificationType.Error }));
+    this.addNotification(new Notification({ message, type: NotificationType.Error }));
   }
 
   public info(message: string) {
-    this.alert(new Notification({ message, type: NotificationType.Info }));
+    this.addNotification(new Notification({ message, type: NotificationType.Info }));
   }
 
   public warning(message: string) {
-    this.alert(new Notification({ message, type: NotificationType.Warning }));
+    this.addNotification(new Notification({ message, type: NotificationType.Warning }));
   }
 
-  public alert(alert: Notification) {
+  public addNotification(alert: Notification) {
     this.subject.next(alert);
   }
-
 }

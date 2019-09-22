@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 
-
 import { Notification, NotificationType } from '@shared/models/notification';
 
 @Component({
@@ -17,25 +16,25 @@ export class NotificationComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.notificationService.getAlert().subscribe((alert: Notification) => {
+    this.notificationService.getNotification().subscribe((notification: Notification) => {
       if (!alert) {
         this.notifications = [];
         return;
       }
 
-      this.notifications.push(alert);
+      this.notifications.push(notification);
 
       const dismissWait = () => {
         new Promise<void>((resolve) => setTimeout(resolve, 3000)).then(() => {
-          this.removeAlert(alert);
+          this.removeNotification(notification);
         });
       };
       dismissWait();
     });
   }
 
-  public removeAlert(alert: Notification) {
-    this.notifications = this.notifications.filter(x => x !== alert);
+  public removeNotification(notification: Notification) {
+    this.notifications = this.notifications.filter(item => item !== notification);
   }
 
   public cssClass(notification: Notification): string {

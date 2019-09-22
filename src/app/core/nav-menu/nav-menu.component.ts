@@ -8,15 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NavMenuComponent implements OnInit {
     public menu = [
         {
-            title: 'Особистий кабінет',
+            title: 'Personal info',
             url: 'personal-user-info'
         },
         {
-            title: 'Розклад',
+            title: 'Schedule',
             url: 'schedule'
         },
         {
-            title: 'Актуальні квитки',
+            title: 'Tickets',
             url: 'tickets'
         }
     ];

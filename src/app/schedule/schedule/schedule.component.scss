@@ -4,7 +4,7 @@
     padding: 30px;
     background: $white-color;
     box-shadow: 10px 10px 10px $grey-color;
-    min-height: 75vh;
+    max-height: 75vh;
 
     &-wrap {
         padding: 10px 30px;
@@ -15,10 +15,8 @@
     &-row {
         display: flex;
         justify-content: space-around;
-        // flex-wrap: wrap;
-        // width: 100%;
+        flex-wrap: wrap;
         max-height: 70vh;
-        // overflow: scroll;
         overflow-y: scroll;
     }
 }
