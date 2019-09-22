@@ -1,0 +1,8 @@
+<div class="notification-wrap">
+  <div *ngFor="let notification of notifications" class="notification notification_{{ cssClass(notification)}}">
+    <div>{{notification.message}}</div>
+    <div class="notification__remove" (click)="removeAlert(notification)">
+      <i class="fa fa-times"></i>
+    </div>
+  </div>
+</div>

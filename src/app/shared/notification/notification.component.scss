@@ -1,0 +1,36 @@
+@import '../color.constants.scss';
+
+.notification {
+    margin: 2px auto;
+    padding: 10px 20px;
+    width: 330px;
+    border-radius: 4px;
+    box-shadow: 3px 4px 12px $dark-grey-color;
+    border: 1px solid $grey-color;
+    background: $white-color;
+    display: flex;
+    justify-content: space-between;
+    
+    &-wrap {
+        margin: 20px 0;
+        width: 100%;
+        position: absolute;
+    }
+
+    &__remove {
+        color: $dark-grey-color;
+        cursor: pointer;
+    }
+
+    &_info {
+        border: 2px solid $info-color;
+    }
+
+    &_success {
+        border: 2px solid $success-color;
+    }
+
+    &_error {
+        border: 2px solid $error-color;
+    }
+}

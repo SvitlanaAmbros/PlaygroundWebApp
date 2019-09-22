@@ -15,8 +15,10 @@
     &-row {
         display: flex;
         justify-content: space-around;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
+        // width: 100%;
         max-height: 70vh;
+        // overflow: scroll;
         overflow-y: scroll;
     }
 }

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { UserInfoService } from '@shared/services/user-info.service';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
+import { NotificationService } from './shared/services/notification.service';
 
 @Component({
   selector: 'app-root',

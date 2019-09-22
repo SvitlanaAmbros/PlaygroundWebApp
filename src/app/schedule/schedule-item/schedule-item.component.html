@@ -14,13 +14,12 @@
             </div>
             <div class="item-event__type">
                 {{ event.sportType }}
+                <span *ngIf="event.emptyPlaceCount > 0">: {{ event.emptyPlaceCount }}</span>
             </div>
         </div>
-        <app-action-btn 
-            [isAvailable]="event.emptyPlaceCount > 0" 
-            [availableMessage]="'Забронювати'"
-            [noAvailableMessage]="'Нема місць'"
-            (clicked)="bookEvent(event)">
+         
+        <app-action-btn [isAvailable]="event.emptyPlaceCount > 0" [availableMessage]="'Book'"
+            [noAvailableMessage]="'No places'" (clicked)="bookEvent(event)">
         </app-action-btn>
     </div>
     <!-- <div class="item__events">

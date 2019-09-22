@@ -12,6 +12,7 @@ import { PersonalInfoModule } from '@personal-info/personal-info.module';
 import { ScheduleModule } from '@schedule/schedule.module';
 import { TicketsModule } from '@tickets/tickets.module';
 import { AuthorizationModule } from '@authorization/authorization.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AuthorizationModule } from '@authorization/authorization.module';
     AppRoutingModule,
     AngularFontAwesomeModule,
     StorageServiceModule,
+    SharedModule,
     AuthorizationModule,
     PersonalInfoModule,
     ScheduleModule,
