@@ -1,60 +1,85 @@
 <div class="form">
   <p class="form__title">{{ title }}</p>
-  <form autocomplete="off" [formGroup]="form">
+  <form [formGroup]="dynamicForm" novalidate>
     <div class="form__row">
-      <label for="name" class="form__label">Name</label>
-      <input type="text" id="name" class="form__value" formControlName="name" [(ngModel)]="user.name">
-      <div *ngIf="!!form.controls['name'] && isInputValid('name')" class="form__error-message">
-          <div *ngIf="form.controls['name'].errors.required">* Name is required</div>
+      <label class="form__label">Name</label>
+      <input type="text" formControlName="name" [(ngModel)]="user.name" class="form__value">
+      <div *ngIf="isFormInvalid(dynamicForm, 'name')">
+        <div *ngIf="dynamicForm?.controls['name']?.errors?.pattern">
+          Name should contain alphabetic characters
+        </div>
+        <div *ngIf="dynamicForm?.controls['name']?.errors?.required">
+          * Name is obligatory field
+        </div>
       </div>
     </div>
     <div class="form__row">
-      <label for="surname" class="form__label">Surname</label>
-      <input type="text" id="surname" class="form__value" formControlName="surname" [(ngModel)]="user.surname">
-      <div *ngIf="!!form.controls['surname'] && isInputValid('surname')" class="form__error-message">
-          <div *ngIf="form.controls['surname'].errors.required">* Surname Name is required</div>
+      <label class="form__label">Surname</label>
+      <input type="text" formControlName="surname" [(ngModel)]="user.surname" class="form__value">
+      <div *ngIf="isFormInvalid(dynamicForm, 'surname')">
+        <div *ngIf="dynamicForm?.controls['surname']?.errors?.pattern">
+          Surname should contain alphabetic characters
+        </div>
+        <div *ngIf="dynamicForm?.controls['surname']?.errors?.required">
+          * Surname is obligatory field
+        </div>
       </div>
     </div>
     <div class="form__row">
-      <label for="login" class="form__label">Login ( Your Email )</label>
-      <input type="text" id="login" class="form__value" formControlName="login" [(ngModel)]="user.login">
-      <div *ngIf="!!form.controls['login'] && isInputValid('login')" class="form__error-message">
-          <div *ngIf="form.controls['login'].errors.required">* Login is required</div>
-          <div *ngIf="form.controls['login'].errors.pattern">Not right Email format</div>
+      <label class="form__label">Email</label>
+      <input type="text" formControlName="email" [(ngModel)]="user.email" class="form__value">
+      <div *ngIf="isFormInvalid(dynamicForm, 'email')">
+        <div *ngIf="dynamicForm?.controls['email']?.errors?.pattern">
+          Not right email format
+        </div>
+        <div *ngIf="dynamicForm?.controls['email']?.errors?.required">
+          * Email is obligatory field
+        </div>
       </div>
     </div>
     <div class="form__row">
-      <label for="password" class="form__label">Password</label>
-      <input type="password" id="password" class="form__value" formControlName="password" [(ngModel)]="user.password">
-      <div *ngIf="!!form.controls['password'] && isInputValid('password')" class="form__error-message">
-        <div *ngIf="form.controls['password'].errors.required">* Password is required</div>
-        <!-- <div *ngIf="form.controls['password'].errors.pattern">Not right password format</div> -->
+      <label class="form__label">Password</label>
+      <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
+      <div *ngIf="isFormInvalid(dynamicForm, 'password')">
+        <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
+          Password must be at least 3 characters long.
+        </div>
+        <div *ngIf="dynamicForm?.controls['password']?.errors?.required">
+          * Password is obligatory field
+        </div>
       </div>
     </div>
-    <div class="form__row">
-      <label for="confirm-password" class="form__label">Confirm Password</label>
-      <input type="confirmPassword" id="confirm-password" class="form__value" 
-        formControlName="confirmPassword" [(ngModel)]="user.confirmPassword">
-      <div *ngIf="!!form.controls['сonfirmPassword'] && isInputValid('сonfirmPassword')" 
-          class="form__error-message">
-        <div *ngIf="form.controls['сonfirmPassword'].errors.required">* Confirm Password is required</div>
-        <!-- <div *ngIf="form.controls['сonfirmPassword'].errors.pattern">Not right  password format</div> -->
+    <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent" (change)="checked($event)">student
+
+    <div *ngFor="let ticket of t.controls; let i = index">
+      <div [formGroup]="ticket">
+        <div class="form__row">
+          <label class="form__label">Student Ticket</label>
+          <input type="text" formControlName="studentTicket" [(ngModel)]="user.studentTicket">
+          <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
+            <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
+              <div>
+                Student ticket not right
+              </div>
+              <div>
+                Example Format: 'KB123456'
+              </div>
+            </div>
+            <!-- <div class="form__row">
+            <label class="form__label">Password</label> -->
+            <div *ngIf="ticket?.controls['studentTicket']?.errors?.required">
+              * Student ticket is obligatory field
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+
+
       </div>
-    </div>
-    <div class="form__row">
-      <input type="checkbox" id="student" class="form__student-checkbox" 
-          [(ngModel)]="user.isStudent" formControlName="isStudent" (change)="isStudent(user.isStudent)">
-      <label for="student">Student</label>
-      <label for="student-ticket" class="form__label">Student`s Ticket</label>
-      <input type="text" id="student-ticket" class="form__value form__student-ticket"
-      formControlName="studentTicket" [(ngModel)]="user.studentTicket">
     </div>
 
-    {{user.studentTicket}}
-    <app-action-btn 
-      [availableMessage]="'Log in'"
-      [noAvailableMessage]="'Log in'"
-      [isAvailable]="form.valid"
-      (clicked)="register()"></app-action-btn>
+    <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="login()"
+      [isAvailable]="dynamicForm.valid"></app-action-btn>
+    <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
   </form>
 </div>

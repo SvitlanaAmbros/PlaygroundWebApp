@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
 import { UserInfo } from '@app/shared/models/user-info.model';
@@ -10,58 +10,73 @@ import { UserInfo } from '@app/shared/models/user-info.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public form: FormGroup;
-  public title = 'Register';
+  dynamicForm: FormGroup;
+  submitted = false;
 
-  public user: UserInfo = {
-    name: 'Svitlana',
-    surname: 'Surname',
-    login: 'anil.singh581@gmail.com',
-    password: '123',
-    confirmPassword: '123',
-    studentTicket: ''
+  constructor(private formBuilder: FormBuilder) { }
+
+  user = {
+    name: 'user',
+    surname: 'someuser',
+    email: 'ksajkja@gmail.com',
+    password: '1234',
+    confirmedPassword: '1234',
+    isStudent: false,
+    studentTicket: 'KB111111'
   };
 
-  constructor(private fb: FormBuilder) {
-  }
-
   ngOnInit() {
-    this.form = this.fb.group({
-      name: [this.user.name, Validators.required],
-      surname: [this.user.surname, Validators.required],
-      login: [this.user.login, Validators.compose([Validators.required,
-        Validators.pattern('[^ @]*@[^ @]*')])],
-      password: [this.user.password, Validators.required],
-      confirmPassword: [this.user.confirmPassword, Validators.required],
-      studentTicket: [this.user.studentTicket, Validators.required],
-      isStudent: [this.user.isStudent]
+    this.dynamicForm = this.formBuilder.group({
+      name: [this.user.name, Validators.compose([
+        Validators.pattern('^[a-zA-Z]{2,}$'),
+        Validators.required
+      ])],
+      surname: [this.user.surname, Validators.compose([
+        Validators.pattern('^[a-zA-Z]{2,}$'),
+        Validators.required
+      ])],
+      email: [this.user.email, Validators.compose([
+        Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
+        Validators.required
+      ])],
+      password: [this.user.password, Validators.compose([
+        Validators.required,
+        Validators.minLength(4)
+      ])],
+      confirmedPassword: [this.user.confirmedPassword, Validators.compose([
+        Validators.required,
+        // Validators.minLength(4)
+      ])],
+      isStudent: [this.user.isStudent],
+      tickets: new FormArray([])
     });
-    // this.form = new FormGroup({
-    //     name: new FormControl(),
-    //     surname: new FormControl()
-    // });
   }
 
-  public register(): void {
-    (<FormGroup>this.form)
-      .setValue(this.user, { onlySelf: true });
-    console.log('Register', this.user);
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.tickets as FormArray; }
+
+  public checked() {
+    if (this.user.isStudent) {
+      this.t.push(this.formBuilder.group({
+        studentTicket: [this.user.studentTicket, Validators.compose([
+          Validators.pattern('^KB[1-9]{6}$'),
+          Validators.required
+        ])],
+    }));
+    } else {
+      this.submitted = false;
+      this.t.removeAt(1);
+
+      while (this.t.length !== 0) {
+        this.t.removeAt(0);
+      }
+      // this.dynamicForm.reset();
+      // this.t.clear();
+    }
   }
 
-  public isInputValid(controlName: string): boolean {
-    return !this.form.controls[controlName].valid
-    && (this.form.controls[controlName].dirty || this.form.controls[controlName].touched);
-  }
-
-  public isStudent(isStudent: boolean): void {
-    console.log(isStudent);
-
-    // if (isStudent) {
-    //   // this.form.addControl('studentTicket', this.fb.control(this.user.studentTicket,
-    //     Validators.required));
-    // } else {
-    //   this.user.studentTicket = '';
-    //   this.form.removeControl('studentTicket');
-    // }
+  public isFormInvalid(form: FormGroup, field): boolean {
+    return form.invalid &&
+      (form.controls[field].dirty || form.controls[field].touched);
   }
 }
