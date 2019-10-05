@@ -6,7 +6,9 @@ import { UserInfoService } from '@shared/services/user-info.service';
 import { NotificationService } from '@shared/services/notification.service';
 
 import { ActionBtnComponent } from '@shared/components/action-btn/action-btn.component';
-import { NotificationComponent } from '@shared/notification/notification.component';
+import { NotificationComponent } from '@shared/components/notification/notification.component';
+import { PopupComponent } from '@shared/components/popup/popup.component';
+import { PopupService } from '@shared/services/popup.service';
 
 @NgModule({
   imports: [
@@ -14,16 +16,19 @@ import { NotificationComponent } from '@shared/notification/notification.compone
   ],
   declarations: [
     ActionBtnComponent,
-    NotificationComponent
+    NotificationComponent,
+    PopupComponent
   ],
   providers: [
     LocalStorageService,
     UserInfoService,
-    NotificationService
+    NotificationService,
+    PopupService
   ],
   exports: [
     ActionBtnComponent,
-    NotificationComponent
+    NotificationComponent,
+    PopupComponent
   ]
 })
 export class SharedModule { }

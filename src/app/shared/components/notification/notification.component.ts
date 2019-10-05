@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NotificationService } from '../services/notification.service';
 
+import { NotificationService } from '@shared/services/notification.service';
 import { Notification, NotificationType } from '@shared/models/notification';
 
 @Component({
@@ -26,7 +26,7 @@ export class NotificationComponent implements OnInit {
 
       const dismissWait = () => {
         new Promise<void>((resolve) => setTimeout(resolve, 3000)).then(() => {
-          this.removeNotification(notification);
+          // this.removeNotification(notification);
         });
       };
       dismissWait();

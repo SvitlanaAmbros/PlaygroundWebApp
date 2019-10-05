@@ -1,19 +1,27 @@
 @import '../../shared/color.constants.scss';
 
 .item {
-    padding: 2px;
+    // padding: 2px;
     border-radius: 5px;
     min-width: 150px;
     text-align: center;
     border: 2px solid #ddffdd;
 
     &__day {
+        // margin-top: -6px;
+        // position: fixed;
+        z-index: 100;
+        // width: 146px;
         padding: 10px 0;
         border-radius: 5px 5px 0 0;
         font-size: 18px;
         font-weight: 600;
         background: #cbf9cb;
     }
+
+    // &-events {
+    //     margin-top: 65px;
+    // }
 
     &-event {
         padding: 2px 0;
@@ -32,5 +40,13 @@
         &__type {
             padding: 5px 0;
         } 
+    }
+}
+
+.popup {
+    &__day {
+        font-size: 18px;
+        font-weight: 600;
+        background: #cbf9cb;
     }
 }

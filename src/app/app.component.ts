@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { UserInfoService } from '@shared/services/user-info.service';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
-import { NotificationService } from './shared/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ import { NotificationService } from './shared/services/notification.service';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'app';
 
   user: LoginUserInfo = {

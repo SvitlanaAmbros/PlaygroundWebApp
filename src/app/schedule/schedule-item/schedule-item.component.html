@@ -7,31 +7,53 @@
             {{ data.dateUI | date: 'EEEE' }}
         </div>
     </div>
-    <div class="item-event" *ngFor="let event of data.events">
-        <div class="item-event__title">
-            <div class="item-event__time">
-                {{ event.startTime }} - {{event.endTime }}
+    <div class="item-events">
+        <div class="item-event" *ngFor="let event of data.events">
+            <div class="item-event__title">
+                <div class="item-event__time">
+                    {{ event.startTime }} - {{event.endTime }}
+                </div>
+                <div class="item-event__type">
+                    {{ event.sportType }}
+                    <span *ngIf="event.emptyPlaceCount > 0">: {{ event.emptyPlaceCount }}</span>
+                </div>
             </div>
-            <div class="item-event__type">
-                {{ event.sportType }}
-                <span *ngIf="event.emptyPlaceCount > 0">: {{ event.emptyPlaceCount }}</span>
-            </div>
+
+            <app-action-btn [isAvailable]="event.emptyPlaceCount > 0" [availableMessage]="'Book'"
+                [noAvailableMessage]="'No places'" (clicked)="bookEvent(event)">
+            </app-action-btn>
+
+            <app-popup 
+                #popup
+                *ngIf="popupControls.isOpened" 
+                [header]="'Are you sure you want to book this event?'"
+                [buttonAction]="'Yes'" 
+                [buttonCancel]="'No'" 
+                (onAction)="confirmEventBooking(event)"
+                (onClose)="closePopup()"
+                [isActionPerformed]="isActionPerformed">
+                <div class="content">
+                    <div>
+                        <div class="popup__day">
+                            <div>
+                                {{ data.dateUI | date: 'd.MM.yyyy' }}
+                            </div>
+                            <div>
+                                {{ data.dateUI | date: 'EEEE' }}
+                            </div>
+                        </div>
+                        <div class="item-event__title">
+                            <div class="item-event__time">
+                                {{ currentEvent.startTime }} - {{currentEvent.endTime }}
+                            </div>
+                            <div class="item-event__type">
+                                {{ currentEvent.sportType }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </app-popup>
         </div>
-         
-        <app-action-btn [isAvailable]="event.emptyPlaceCount > 0" [availableMessage]="'Book'"
-            [noAvailableMessage]="'No places'" (clicked)="bookEvent(event)">
-        </app-action-btn>
     </div>
-    <!-- <div class="item__events">
-        <div class="item__events-title">
-            <div class="item__events-time">
-                12.00-13.00
-            </div>
-            <div class="item__events-type">
-                Футбол
-            </div>
-        </div>
-        <app-action-btn [isAvailable]="true" [availableMessage]="'Забронювати'" [noAvailableMessage]="'Нема місць'">
-        </app-action-btn>
-    </div> -->
+
 </div>

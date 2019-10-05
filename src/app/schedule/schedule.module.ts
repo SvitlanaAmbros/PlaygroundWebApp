@@ -5,8 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ScheduleComponent } from '@schedule/schedule/schedule.component';
 import { ScheduleItemComponent } from '@schedule/schedule-item/schedule-item.component';
+import { ScheduleService } from '@schedule/services/schedule.service';
+
 import { SharedModule } from '@shared/shared.module';
-import { ScheduleService } from './services/schedule.service';
 
 const routes: Routes = [
   {
