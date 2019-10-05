@@ -31,6 +31,8 @@
       [availableMessage]="'Log in'"
       [noAvailableMessage]="'Log in'"
       (clicked)="login()" 
-      [isAvailable]="form.valid"></app-action-btn>
+      [isAvailable]="form.valid">
+      <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i>
+    </app-action-btn>
   </form>
 </div>

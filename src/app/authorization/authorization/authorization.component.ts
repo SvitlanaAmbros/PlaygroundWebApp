@@ -9,7 +9,6 @@ import { authorizationMenu } from '@authorization/models/authorization.model';
   styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent implements OnInit {
-
   public menu = authorizationMenu;
   constructor(private router: Router) { }
 

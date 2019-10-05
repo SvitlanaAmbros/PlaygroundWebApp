@@ -8,6 +8,7 @@ import { LoginComponent } from '@authorization/login/login.component';
 import { RegisterComponent } from '@authorization/register/register.component';
 import { AuthorizationComponent } from '@authorization/authorization/authorization.component';
 import { AuthorizationRoutingModule } from '@authorization/authorization-routing.module';
+import { AuthorizationService } from '@authorization/services/authorization.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { AuthorizationRoutingModule } from '@authorization/authorization-routing
     ReactiveFormsModule,
     AuthorizationRoutingModule,
     SharedModule
+  ],
+  providers: [
+    AuthorizationService
   ],
   declarations: [
     LoginComponent,

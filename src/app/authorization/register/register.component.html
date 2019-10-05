@@ -27,7 +27,7 @@
     </div>
     <div class="form__row">
       <label class="form__label">Email</label>
-      <input type="text" formControlName="email" [(ngModel)]="user.email" class="form__value">
+      <input type="text" formControlName="email" [(ngModel)]="user.login" class="form__value">
       <div *ngIf="isFormInvalid(dynamicForm, 'email')">
         <div *ngIf="dynamicForm?.controls['email']?.errors?.pattern">
           Not right email format
@@ -49,13 +49,17 @@
         </div>
       </div>
     </div>
-    <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent" (change)="checked($event)">student
+    <input type="checkbox" formControlName="isStudent" 
+    [(ngModel)]="user.isStudent" (change)="checked($event)">Student
 
     <div *ngFor="let ticket of t.controls; let i = index">
       <div [formGroup]="ticket">
         <div class="form__row">
           <label class="form__label">Student Ticket</label>
-          <input type="text" formControlName="studentTicket" [(ngModel)]="user.studentTicket">
+          <input type="text" 
+            formControlName="studentTicket" 
+            [(ngModel)]="user.studentTicket"
+            class="form__value">
           <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
             <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
               <div>
@@ -78,7 +82,7 @@
       </div>
     </div>
 
-    <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="login()"
+    <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
       [isAvailable]="dynamicForm.valid"></app-action-btn>
     <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
   </form>

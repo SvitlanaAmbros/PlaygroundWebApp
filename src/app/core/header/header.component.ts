@@ -18,17 +18,16 @@ export class HeaderComponent implements OnInit {
     }
 
     public navigateToLoginPage(): void {
-        this.router.navigateByUrl('/authorization');
+        // this.router.navigateByUrl('/authorization');
 
-        if (this.isAuthenticated) {
-            const user: LoginUserInfo = {
-                login: undefined,
-                password: undefined,
-                isAuthenticated: false
-            };
+        // if (this.isAuthenticated) {
+        //     const user: LoginUserInfo = {
+        //         login: undefined,
+        //         password: undefined
+        //     };
 
-            this.userService.updateUserInfo(user);
-        }
+        //     // this.userService.updateUserInfo(user);
+        // }
     }
 
 }

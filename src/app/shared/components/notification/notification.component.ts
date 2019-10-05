@@ -26,7 +26,7 @@ export class NotificationComponent implements OnInit {
 
       const dismissWait = () => {
         new Promise<void>((resolve) => setTimeout(resolve, 3000)).then(() => {
-          // this.removeNotification(notification);
+          this.removeNotification(notification);
         });
       };
       dismissWait();

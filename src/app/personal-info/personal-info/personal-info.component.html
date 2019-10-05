@@ -3,24 +3,19 @@
     <div class="personal-info">
       <div class="personal-info__header">
         <p>Personal Info</p>
-        <app-action-btn *ngIf="!isEdited" 
-            class="personal-info__btn"
-            [availableMessage]="'Edit'" 
-            [hasBorder]="true"
-            (clicked)="editPersonalInfo()"></app-action-btn>
-        <app-action-btn *ngIf="isEdited" 
-            class="personal-info__btn"
-            [availableMessage]="'Save'" 
-            (clicked)="savePersonalInfo()"></app-action-btn>
+        <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
+          (clicked)="editPersonalInfo()"></app-action-btn>
+        <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
+          (clicked)="savePersonalInfo()"></app-action-btn>
       </div>
       <div *ngIf="!isEdited">
         <div class="row">
           <label for="name" class="form__label">Name: </label>
-          <span>{{ user.name }}</span>
+          <span>{{ user?.name }}</span>
         </div>
         <div class="row">
           <label for="surname" class="form__label">Surname: </label>
-          <span>{{ user.surname }}</span>
+          <span>{{ user?.surname }}</span>
         </div>
         <div class="row">
           <label for="login" class="form__label">Login ( Your Email ): </label>
@@ -28,45 +23,99 @@
         </div>
         <div class="row">
           <label for="password" class="form__label">Password: </label>
-          <span>{{ user.password }}</span>
+          <span>{{ user?.password }}</span>
         </div>
         <div class="row">
           <label for="student-ticket" class="form__label">Student`s Ticket: </label>
-          <span>{{ user.studentsTicket }}</span>
+          <span>{{ user?.studentsTicket }}</span>
         </div>
       </div>
       <div *ngIf="isEdited">
         <div class="form">
           <p class="form__title">{{ title }}</p>
-          <form autocomplete="off">
+          <form [formGroup]="dynamicForm" novalidate>
             <div class="form__row">
-              <label for="name" class="form__label">Name</label>
-              <input type="text" id="name" class="form__value">
+              <label class="form__label">Name</label>
+              <input type="text" formControlName="name" [(ngModel)]="user.name" class="form__value">
+              <div *ngIf="isFormInvalid(dynamicForm, 'name')">
+                <div *ngIf="dynamicForm?.controls['name']?.errors?.pattern">
+                  Name should contain alphabetic characters
+                </div>
+                <div *ngIf="dynamicForm?.controls['name']?.errors?.required">
+                  * Name is obligatory field
+                </div>
+              </div>
             </div>
             <div class="form__row">
-              <label for="surname" class="form__label">Surname</label>
-              <input type="password" id="surname" class="form__value">
+              <label class="form__label">Surname</label>
+              <input type="text" formControlName="surname" [(ngModel)]="user.surname" class="form__value">
+              <div *ngIf="isFormInvalid(dynamicForm, 'surname')">
+                <div *ngIf="dynamicForm?.controls['surname']?.errors?.pattern">
+                  Surname should contain alphabetic characters
+                </div>
+                <div *ngIf="dynamicForm?.controls['surname']?.errors?.required">
+                  * Surname is obligatory field
+                </div>
+              </div>
             </div>
             <div class="form__row">
-              <label for="login" class="form__label">Login ( Your Email )</label>
-              <input type="text" id="login" class="form__value">
+              <label class="form__label">Email</label>
+              <input type="text" formControlName="email" [(ngModel)]="user.login" class="form__value">
+              <div *ngIf="isFormInvalid(dynamicForm, 'email')">
+                <div *ngIf="dynamicForm?.controls['email']?.errors?.pattern">
+                  Not right email format
+                </div>
+                <div *ngIf="dynamicForm?.controls['email']?.errors?.required">
+                  * Email is obligatory field
+                </div>
+              </div>
             </div>
             <div class="form__row">
-              <label for="password" class="form__label">Password</label>
-              <input type="password" id="password" class="form__value">
+              <label class="form__label">Password</label>
+              <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
+              <div *ngIf="isFormInvalid(dynamicForm, 'password')">
+                <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
+                  Password must be at least 3 characters long.
+                </div>
+                <div *ngIf="dynamicForm?.controls['password']?.errors?.required">
+                  * Password is obligatory field
+                </div>
+              </div>
             </div>
-            <div class="form__row">
-              <label for="confirm-password" class="form__label">Confirm Password</label>
-              <input type="password" id="confirm-password" class="form__value">
-            </div>
-            <div class="form__row">
-              <input type="checkbox" id="student" class="form__student-checkbox">
-              <label for="student">Student</label>
-              <label for="student-ticket" class="form__label">Student`s Ticket</label>
-              <input type="text" id="student-ticket" class="form__value form__student-ticket">
+            <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
+              (change)="checked($event)">Student
+
+            <div *ngFor="let ticket of t.controls; let i = index">
+              <div [formGroup]="ticket">
+                <div class="form__row">
+                  <label class="form__label">Student Ticket</label>
+                  <input type="text" formControlName="studentTicket" [(ngModel)]="user.studentTicket"
+                    class="form__value">
+                  <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
+                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
+                      <div>
+                        Student ticket not right
+                      </div>
+                      <div>
+                        Example Format: 'KB123456'
+                      </div>
+                    </div>
+                    <!-- <div class="form__row">
+                        <label class="form__label">Password</label> -->
+                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.required">
+                      * Student ticket is obligatory field
+                    </div>
+                    <!-- </div> -->
+                  </div>
+                </div>
+
+
+              </div>
             </div>
 
-            <!-- <app-action-btn [availableMessage]="'Log in'"></app-action-btn> -->
+            <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
+              [isAvailable]="dynamicForm.valid"></app-action-btn>
+            <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
           </form>
         </div>
       </div>

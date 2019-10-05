@@ -3,7 +3,7 @@ export interface UserInfo {
     surname: string;
     login: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
     studentTicket?: string;
     isStudent?: boolean;
 }

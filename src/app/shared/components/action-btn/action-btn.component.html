@@ -5,6 +5,7 @@
   (click)="onClick()">
     <div class="" *ngIf="isAvailable">
       {{ availableMessage}}
+      <ng-content select=".spinner"></ng-content>
     </div>
     <div class="" *ngIf="!isAvailable">
       {{ noAvailableMessage}}

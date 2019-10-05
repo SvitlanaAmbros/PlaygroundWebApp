@@ -10,22 +10,25 @@ import { UserInfo } from '@app/shared/models/user-info.model';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  dynamicForm: FormGroup;
-  submitted = false;
+  public dynamicForm: FormGroup;
+  public submitted = false;
 
   constructor(private formBuilder: FormBuilder) { }
-
-  user = {
+  user: UserInfo  = {
     name: 'user',
     surname: 'someuser',
-    email: 'ksajkja@gmail.com',
+    login: 'ksajkja@gmail.com',
     password: '1234',
-    confirmedPassword: '1234',
+    confirmPassword: '1234',
     isStudent: false,
     studentTicket: 'KB111111'
   };
 
   ngOnInit() {
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
     this.dynamicForm = this.formBuilder.group({
       name: [this.user.name, Validators.compose([
         Validators.pattern('^[a-zA-Z]{2,}$'),
@@ -35,7 +38,7 @@ export class RegisterComponent implements OnInit {
         Validators.pattern('^[a-zA-Z]{2,}$'),
         Validators.required
       ])],
-      email: [this.user.email, Validators.compose([
+      email: [this.user.login, Validators.compose([
         Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
         Validators.required
       ])],
@@ -43,9 +46,9 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(4)
       ])],
-      confirmedPassword: [this.user.confirmedPassword, Validators.compose([
+      confirmedPassword: [this.user.confirmPassword, Validators.compose([
         Validators.required,
-        // Validators.minLength(4)
+        Validators.minLength(4)
       ])],
       isStudent: [this.user.isStudent],
       tickets: new FormArray([])
@@ -78,5 +81,9 @@ export class RegisterComponent implements OnInit {
   public isFormInvalid(form: FormGroup, field): boolean {
     return form.invalid &&
       (form.controls[field].dirty || form.controls[field].touched);
+  }
+
+  public register(): void {
+    console.log(this.user);
   }
 }

@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { UserInfoService } from '@shared/services/user-info.service';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
+import { UserInfo } from './shared/models/user-info.model';
+
+export const LOGIN = 'login';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +17,11 @@ import { LoginUserInfo } from '@shared/models/login-user-info.model';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  user: LoginUserInfo = {
-    login: '',
-    password: '',
-    isAuthenticated: false
-  };
+  user: UserInfo;
+  // user: LoginUserInfo = {
+  //   login: '',
+  //   password: ''
+  // };
 
   subscription: Subscription;
 
@@ -26,7 +29,19 @@ export class AppComponent implements OnInit {
     private userService: UserInfoService) { }
 
   ngOnInit(): void {
-    this.subscription = this.userService.getUserInfo().subscribe(user => { this.user = user; });
+    if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
+      this.user = this.localStorage.getUserInfoFromLocalStorage();
+      console.log('User', this.user);
+    } else {
+      this.subscription = this.userService.getUserInfo().subscribe(
+        user => {
+          this.user = user;
+          console.log('User', this.user);
+        });
+    }
+    // console.log(this.localStorage.getFromLocalStorage('123'));
+
+
     // console.log('');
     // this.localStorage.saveInLocalStorage('user', '');
     // this.localStorage.saveInLocalStorage('password', '');

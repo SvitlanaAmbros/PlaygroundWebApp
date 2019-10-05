@@ -1,10 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthorizationService } from '@authorization/services/authorization.service';
 
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { UserInfoService } from '@shared/services/user-info.service';
+import { NotificationService } from '@shared/services/notification.service';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
+import { UserInfo } from '@shared/models/user-info.model';
+import { finalize } from 'rxjs/operators';
+
+export const WRONG_LOGIN = 'Something went wrong! Try again';
 
 @Component({
   selector: 'app-login',
@@ -13,29 +20,54 @@ import { LoginUserInfo } from '@shared/models/login-user-info.model';
 })
 export class LoginComponent implements OnInit {
   public title = 'Log in';
+  public isActionPerformed  = false;
+
   public user: LoginUserInfo = {
     login: 'Svitlana',
-    password: '1234',
-    isAuthenticated: true
+    password: '1234'
   };
+
+  public dynamicForm: FormGroup;
 
   constructor(private router: Router,
     private localStorage: LocalStorageService,
-    private userService: UserInfoService) { }
+    private authService: AuthorizationService,
+    private notification: NotificationService,
+    private userService: UserInfoService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
 
   public login(): void {
+    this.isActionPerformed = true;
+    this.authService.login(this.user)
+    .pipe(
+      finalize(() => this.isActionPerformed = false)
+    )
+    .subscribe(
+      (res: UserInfo) =>  {
+        console.log(res);
+        this.saveUserInLocalStorage(res);
+        this.router.navigateByUrl('schedule');
+        this.userService.updateUserInfo(res);
+      },
+      err => {
+        this.notification.error(WRONG_LOGIN);
+      }
+    );
     // this.localStorage.saveInLocalStorage('user', 'user');
     // this.localStorage.saveInLocalStorage('password', 'password');
     // this.localStorage.saveInLocalStorage('isAuthenticated', true);
     // this.ref.detectChanges();
-    this.userService.updateUserInfo(this.user);
-    this.router.navigateByUrl('personal-user-info');
+    // this.router.navigateByUrl('personal-user-info');
   }
 
   public isFormAvailable(f: FormGroup): boolean {
     return ;
+  }
+
+  private saveUserInLocalStorage(user: UserInfo): void {
+    this.localStorage.saveUserInfoInLocalStorage(user);
   }
 }
