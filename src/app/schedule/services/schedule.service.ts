@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators';
-import { HttpParams, HttpClient } from '@angular/common/http';
 
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
-import { schedule } from '../mock/schedule-days.mock';
+import { schedule } from '@schedule/mock/schedule-days.mock';
 
 export const GET_SCHEDULE_FOR_PERIOD = '/schedule';
 export const BOOK_EVENT = '/book';
