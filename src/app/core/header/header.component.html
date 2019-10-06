@@ -2,15 +2,17 @@
     <div class="container">
         <div class="header">
             <div class="menu">
-                <app-nav-menu></app-nav-menu>
-                <!-- *ngIf="isAuthenticated; else title" -->
-                <!-- <ng-template #title>
+                <div *ngIf="isAuthenticated; else title">
+                    <app-nav-menu></app-nav-menu>
+                </div>
+                <ng-template #title>
                     <div class="title">
                         KPI playground
                     </div>
-                </ng-template> -->
+                </ng-template>
             </div>
-            <div class="user" (click)="navigateToLoginPage()">
+            <div class="user" *ngIf="isAuthenticated" 
+                (click)="logOut()">
                 <i class="fa fa-user"></i>
             </div>
             <div class="user__login">

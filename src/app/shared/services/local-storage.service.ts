@@ -31,4 +31,16 @@ export class LocalStorageService {
   public saveUserInfoInLocalStorage(user: UserInfo): void {
     Object.keys(user).forEach(key => this.saveInLocalStorage(key, user[key]));
   }
+
+  public deleteUserFromLocalStorage() {
+    const user: UserInfo = {
+      name: undefined,
+      surname: undefined,
+      login: undefined,
+      password: undefined,
+      studentTicket: undefined
+    };
+
+    Object.keys(user).forEach(key => this.storage.remove(key));
+  }
 }

@@ -1,14 +1,21 @@
 <div class="form">
   <p class="form__title">{{ title }}</p>
-  <form #form="ngForm" novalidate> 
+  <form [formGroup]="dynamicForm" novalidate> 
     <div class="form__row">
       <label for="login" class="form__label">Login ( Your Email )</label>
       <input type="text" 
         id="login" 
         class="form__value" 
-        name="login"
-        [(ngModel)]="user.login"
-        required>
+        formControlName="login" 
+        [(ngModel)]="user.login">
+      <div *ngIf="isFormInvalid(dynamicForm, 'login')">
+          <div *ngIf="dynamicForm?.controls['login']?.errors?.pattern">
+            Not right login format
+          </div>
+          <div *ngIf="dynamicForm?.controls['login']?.errors?.required">
+            * Login is obligatory field
+          </div>
+        </div>
         <!-- <div *ngIf="form.submitted && login.invalid" class="invalid-feedback">
           <div *ngIf="login.errors.required">Login is required</div>
         </div> -->
@@ -23,15 +30,23 @@
         id="password"  
         class="form__value"
         name="password"
-        [(ngModel)]="user.password"
-        required>
+        formControlName="password" 
+        [(ngModel)]="user.password">
+        <div *ngIf="isFormInvalid(dynamicForm, 'password')">
+          <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
+            Password must be at least 3 characters long.
+          </div>
+          <div *ngIf="dynamicForm?.controls['password']?.errors?.required">
+            * Password is obligatory field
+          </div>
+        </div>
     </div>
     
     <app-action-btn 
       [availableMessage]="'Log in'"
       [noAvailableMessage]="'Log in'"
       (clicked)="login()" 
-      [isAvailable]="form.valid">
+      [isAvailable]="dynamicForm.valid">
       <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i>
     </app-action-btn>
   </form>

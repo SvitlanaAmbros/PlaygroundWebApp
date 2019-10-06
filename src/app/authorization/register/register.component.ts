@@ -1,8 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
-import { LoginUserInfo } from '@shared/models/login-user-info.model';
-import { UserInfo } from '@app/shared/models/user-info.model';
+import { AuthorizationService } from '@authorization/services/authorization.service';
+import { WRONG_LOGIN } from '@authorization/authorization/authorization.component';
+
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { NotificationService } from '@shared/services/notification.service';
+import { UserInfoService } from '@shared/services/user-info.service';
+import { UserInfo } from '@shared/models/user-info.model';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +19,17 @@ import { UserInfo } from '@app/shared/models/user-info.model';
 export class RegisterComponent implements OnInit {
   public dynamicForm: FormGroup;
   public submitted = false;
+  public isActionPerformed  = false;
+  public passwordIsEqual = true;
 
-  constructor(private formBuilder: FormBuilder) { }
-  user: UserInfo  = {
+  constructor(private router: Router,
+    private localStorage: LocalStorageService,
+    private notification: NotificationService,
+    private authService: AuthorizationService,
+    private userService: UserInfoService,
+    private formBuilder: FormBuilder) { }
+
+  user: UserInfo = {
     name: 'user',
     surname: 'someuser',
     login: 'ksajkja@gmail.com',
@@ -46,7 +61,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(4)
       ])],
-      confirmedPassword: [this.user.confirmPassword, Validators.compose([
+      confirmPassword: [this.user.confirmPassword, Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])],
@@ -65,7 +80,7 @@ export class RegisterComponent implements OnInit {
           Validators.pattern('^KB[1-9]{6}$'),
           Validators.required
         ])],
-    }));
+      }));
     } else {
       this.submitted = false;
       this.t.removeAt(1);
@@ -73,8 +88,6 @@ export class RegisterComponent implements OnInit {
       while (this.t.length !== 0) {
         this.t.removeAt(0);
       }
-      // this.dynamicForm.reset();
-      // this.t.clear();
     }
   }
 
@@ -85,5 +98,28 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     console.log(this.user);
+
+    this.isActionPerformed = true;
+    this.authService.register(this.user)
+    .pipe(
+      finalize(() => this.isActionPerformed = false)
+    )
+    .subscribe(
+      (res: UserInfo) => {
+        console.log(res);
+        this.localStorage.saveUserInfoInLocalStorage(res);
+        this.router.navigateByUrl('schedule');
+        this.userService.updateUserInfo(res);
+      },
+      err => {
+        this.notification.error(WRONG_LOGIN);
+      }
+    );
+  }
+
+  public focusOutFunction(): void {
+    // this.user.password === this.user.confirmPassword ?
+    //     this.passwordIsEqual = true : this.passwordIsEqual = false;
+    // console.log('!!', this.user.password !== this.user.confirmPassword);
   }
 }

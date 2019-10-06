@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { authorizationMenu } from '@authorization/models/authorization.model';
 
+export const WRONG_LOGIN = 'Something went wrong! Try again';
+
 @Component({
   selector: 'app-authorization',
   templateUrl: './authorization.component.html',

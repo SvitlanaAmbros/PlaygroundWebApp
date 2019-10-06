@@ -49,6 +49,26 @@
         </div>
       </div>
     </div>
+
+    <div class="form__row">
+      <label class="form__label">Confirm Password</label>
+      <input type="text" formControlName="confirmPassword" 
+        (ngModelChange)="focusOutFunction()"
+        [(ngModel)]="user.confirmPassword" 
+        class="form__value">
+      <div *ngIf="isFormInvalid(dynamicForm, 'confirmPassword')">
+        <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.minlength">
+          Confirm Password must be at least 3 characters long.
+        </div>
+        <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.required">
+          * Confirm Password is obligatory field
+        </div>
+      </div>
+      <div *ngIf="!passwordIsEqual">
+        Password and Confirm Password must be the same
+      </div>
+    </div>
+
     <input type="checkbox" formControlName="isStudent" 
     [(ngModel)]="user.isStudent" (change)="checked($event)">Student
 
@@ -82,8 +102,13 @@
       </div>
     </div>
 
-    <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
-      [isAvailable]="dynamicForm.valid"></app-action-btn>
+    <app-action-btn 
+      [availableMessage]="'Register'" 
+      [noAvailableMessage]="'Register'" 
+      (clicked)="register()"
+      [isAvailable]="dynamicForm.valid && passwordIsEqual">
+      <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i>
+    </app-action-btn>
     <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
   </form>
 </div>

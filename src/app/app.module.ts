@@ -13,6 +13,8 @@ import { ScheduleModule } from '@schedule/schedule.module';
 import { TicketsModule } from '@tickets/tickets.module';
 import { AuthorizationModule } from '@authorization/authorization.module';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BaseHttpInterceptor } from './core/interceptors/http-interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,13 @@ import { SharedModule } from './shared/shared.module';
     ScheduleModule,
     TicketsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

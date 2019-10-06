@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { UserInfoService } from '@shared/services/user-info.service';
-import { LoginUserInfo } from '@app/shared/models/login-user-info.model';
+import { LocalStorageService } from '@shared/services/local-storage.service';
+
+export const LOGIN = 'login';
 
 @Component({
     selector: 'app-header',
@@ -10,14 +13,25 @@ import { LoginUserInfo } from '@app/shared/models/login-user-info.model';
 })
 export class HeaderComponent implements OnInit {
     @Input() userLogin = '';
-    @Input() isAuthenticated = false;
+    @Input() isAuthenticated;
 
-    constructor(private router: Router, private userService: UserInfoService) { }
+    constructor(private router: Router,
+        private userService: UserInfoService,
+        private localStorage: LocalStorageService) { }
 
     ngOnInit() {
+        // if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
+        //     this.isAuthenticated = true;
+        // }
     }
 
-    public navigateToLoginPage(): void {
+    public logOut(): void {
+        if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
+            this.localStorage.deleteUserFromLocalStorage();
+            this.userService.updateUserInfo(null);
+            this.router.navigateByUrl('authorization');
+            this.isAuthenticated = false;
+        }
         // this.router.navigateByUrl('/authorization');
 
         // if (this.isAuthenticated) {

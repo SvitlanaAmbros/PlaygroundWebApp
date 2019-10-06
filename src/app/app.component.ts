@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { UserInfoService } from '@shared/services/user-info.service';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
 import { UserInfo } from './shared/models/user-info.model';
+import { Router } from '@angular/router';
 
 export const LOGIN = 'login';
 
@@ -15,30 +16,41 @@ export const LOGIN = 'login';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  public title = 'app';
+  public isAuthenticated = false;
 
-  user: UserInfo;
+  public user: UserInfo;
   // user: LoginUserInfo = {
   //   login: '',
   //   password: ''
   // };
 
-  subscription: Subscription;
+  public subscription: Subscription;
 
   constructor(private localStorage: LocalStorageService,
-    private userService: UserInfoService) { }
+    private userService: UserInfoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
       this.user = this.localStorage.getUserInfoFromLocalStorage();
+      // this.userService.updateUserInfo(this.user);
+      this.router.navigateByUrl('schedule');
+      this.isAuthenticated = true;
       console.log('User', this.user);
-    } else {
-      this.subscription = this.userService.getUserInfo().subscribe(
-        user => {
-          this.user = user;
-          console.log('User', this.user);
-        });
     }
+    this.subscription = this.userService.getUserInfo().subscribe(
+      user => {
+        if (!!user) {
+          this.user = user;
+          this.isAuthenticated = true;
+        } else {
+          this.user = null;
+          this.isAuthenticated = false;
+        }
+        console.log('User login', this.user, this.isAuthenticated);
+      });
+    // }
     // console.log(this.localStorage.getFromLocalStorage('123'));
 
 
