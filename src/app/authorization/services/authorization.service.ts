@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 
 import { UserInfo } from '@shared/models/user-info.model';
 import { LoginUserInfo } from '@shared/models/login-user-info.model';
-import { UserInfoService } from '@app/shared/services/user-info.service';
 
 export const LOGIN = '/users/login';
-export const REGISTER = '/users/registration';
+export const REGISTER = '/users/register';
 
 @Injectable()
 export class AuthorizationService {

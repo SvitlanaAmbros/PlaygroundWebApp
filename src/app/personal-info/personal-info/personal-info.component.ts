@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseUserInfo } from '@personal-info/models/personal-info.model';
-import { PersonalInfoService } from '@personal-info/services/personal-info.service';
-import { UserInfo } from '@app/shared/models/user-info.model';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
+
+import { PersonalInfoService } from '@personal-info/services/personal-info.service';
+import { UserInfo } from '@shared/models/user-info.model';
 
 @Component({
   selector: 'app-personal-info',
@@ -14,9 +15,11 @@ export class PersonalInfoComponent implements OnInit {
     name: undefined,
     surname: undefined,
     login: undefined,
-    password: undefined
+    password: undefined,
+    studentTicket: undefined,
   };
   public isEdited = false;
+  public isActionPerformed = false;
 
   public dynamicForm: FormGroup;
   public submitted = false;
@@ -27,7 +30,11 @@ export class PersonalInfoComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
 
-    this.userService.getBaseUserInfo().subscribe(user => this.user = user);
+    this.userService.getBaseUserInfo().subscribe(user => {
+      this.user = { ...user, isStudent: !!user.studentTicket};
+      this.changedIsStudentValue();
+      console.log('User from storage', this.user);
+    });
   }
 
   public editPersonalInfo(): void {
@@ -38,6 +45,12 @@ export class PersonalInfoComponent implements OnInit {
     this.isEdited = !this.isEdited;
 
     console.log('@@@', this.user);
+    this.isActionPerformed = true;
+    this.userService.updateUserInfo(this.user)
+      .pipe(
+        finalize(() => this.isActionPerformed = false)
+      )
+      .subscribe(res => console.log('!!!!!!!', res));
   }
 
   // user: UserInfo  = {
@@ -81,17 +94,18 @@ export class PersonalInfoComponent implements OnInit {
   get f() { return this.dynamicForm.controls; }
   get t() { return this.f.tickets as FormArray; }
 
-  public checked() {
+  public changedIsStudentValue() {
     if (this.user.isStudent) {
       this.t.push(this.formBuilder.group({
         studentTicket: [this.user.studentTicket, Validators.compose([
           Validators.pattern('^KB[1-9]{6}$'),
           Validators.required
         ])],
-    }));
+      }));
     } else {
       this.submitted = false;
       this.t.removeAt(1);
+      delete this.user.studentTicket;
 
       while (this.t.length !== 0) {
         this.t.removeAt(0);

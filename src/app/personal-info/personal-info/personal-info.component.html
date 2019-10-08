@@ -6,7 +6,8 @@
         <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
           (clicked)="editPersonalInfo()"></app-action-btn>
         <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
-          (clicked)="savePersonalInfo()"></app-action-btn>
+          (clicked)="savePersonalInfo()">
+          <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i></app-action-btn>
       </div>
       <div *ngIf="!isEdited">
         <div class="row">
@@ -25,15 +26,19 @@
           <label for="password" class="form__label">Password: </label>
           <span>{{ user?.password }}</span>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="user?.isStudent">
           <label for="student-ticket" class="form__label">Student`s Ticket: </label>
-          <span>{{ user?.studentsTicket }}</span>
+          <span>{{ user?.studentTicket }}</span>
         </div>
       </div>
       <div *ngIf="isEdited">
         <div class="form">
           <p class="form__title">{{ title }}</p>
           <form [formGroup]="dynamicForm" novalidate>
+            <div class="row">
+              <label for="login" class="form__label">Login ( Your Email ): </label>
+              <span>{{ user.login }}</span>
+            </div>
             <div class="form__row">
               <label class="form__label">Name</label>
               <input type="text" formControlName="name" [(ngModel)]="user.name" class="form__value">
@@ -58,7 +63,7 @@
                 </div>
               </div>
             </div>
-            <div class="form__row">
+            <!-- <div class="form__row">
               <label class="form__label">Email</label>
               <input type="text" formControlName="email" [(ngModel)]="user.login" class="form__value">
               <div *ngIf="isFormInvalid(dynamicForm, 'email')">
@@ -69,7 +74,7 @@
                   * Email is obligatory field
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="form__row">
               <label class="form__label">Password</label>
               <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
@@ -83,7 +88,7 @@
               </div>
             </div>
             <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
-              (change)="checked($event)">Student
+              (change)="changedIsStudentValue($event)">Student
 
             <div *ngFor="let ticket of t.controls; let i = index">
               <div [formGroup]="ticket">
