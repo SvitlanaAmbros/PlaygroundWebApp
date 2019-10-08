@@ -14,6 +14,11 @@ export class ScheduleComponent implements OnInit {
     constructor(private scheduleService: ScheduleService) { }
 
     ngOnInit() {
-        this.scheduleData = this.scheduleService.getScheduleForPeriod(2);
+        this.loadScheduleInfo();
+        // this.scheduleData = this.scheduleService.getScheduleForPeriod(2);
+    }
+
+    public loadScheduleInfo(): void {
+        this.scheduleData = this.scheduleService.getScheduleForPeriod();
     }
 }

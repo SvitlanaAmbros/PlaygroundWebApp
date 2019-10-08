@@ -1,21 +1,21 @@
 <div class="item" *ngIf="!!data">
     <div class="item__day">
         <div>
-            {{ data.dateUI | date: 'd.MM.yyyy' }}
+            {{ data?.dateUI | date: 'd.MM.yyyy' }}
         </div>
         <div>
-            {{ data.dateUI | date: 'EEEE' }}
+            {{ data?.dateUI | date: 'EEEE' }}
         </div>
     </div>
     <div class="item-events">
         <div class="item-event" *ngFor="let event of data.events">
             <div class="item-event__title">
                 <div class="item-event__time">
-                    {{ event.startTime }} - {{event.endTime }}
+                    {{ event?.startTime }} - {{event?.endTime }}
                 </div>
                 <div class="item-event__type">
                     {{ event.sportType }}
-                    <span *ngIf="event.emptyPlaceCount > 0">: {{ event.emptyPlaceCount }}</span>
+                    <span *ngIf="event?.emptyPlaceCount > 0">: {{ event?.emptyPlaceCount }}</span>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                 [header]="'Are you sure you want to book this event?'"
                 [buttonAction]="'Yes'" 
                 [buttonCancel]="'No'" 
-                (onAction)="confirmEventBooking(event)"
+                (onAction)="confirmEventBooking()"
                 (onClose)="closePopup()"
                 [isActionPerformed]="isActionPerformed">
                 <div class="content">
@@ -44,10 +44,10 @@
                         </div>
                         <div class="item-event__title">
                             <div class="item-event__time">
-                                {{ currentEvent.startTime }} - {{currentEvent.endTime }}
+                                {{ currentEvent?.startTime }} - {{currentEvent?.endTime }}
                             </div>
                             <div class="item-event__type">
-                                {{ currentEvent.sportType }}
+                                {{ currentEvent?.sportType }}
                             </div>
                         </div>
                     </div>

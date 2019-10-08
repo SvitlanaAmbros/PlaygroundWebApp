@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ChangeDetectorRef,
+    Output,
+    EventEmitter
+} from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
@@ -6,7 +13,11 @@ import { ScheduleService } from '@schedule/services/schedule.service';
 import { ScheduleEvent } from '@schedule/models/schedule-event.model';
 import { NotificationService } from '@shared/services/notification.service';
 import { PopupControls, PopupService } from '@shared/services/popup.service';
-import { PopupComponent } from '@shared/components/popup/popup.component';
+import { LocalStorageService } from '@shared/services/local-storage.service';
+
+export const LOGIN = 'login';
+export const SUCCESSFULLY_BOOKED = 'Event was successfully booked';
+export const BOOKING_ERROR = 'Some error occured';
 
 @Component({
     selector: 'app-schedule-item',
@@ -20,11 +31,12 @@ export class ScheduleItemComponent implements OnInit {
     public isActionPerformed = false;
 
     @Input() data: ScheduleDay;
+    @Output() updateScheduleInfo = new EventEmitter();
 
     constructor(private scheduleService: ScheduleService,
         private notification: NotificationService,
-        private popupService: PopupService,
-        private cdref: ChangeDetectorRef) { }
+        private localStorageService: LocalStorageService,
+        private popupService: PopupService) { }
 
     ngOnInit() {
         this.initPopup();
@@ -33,31 +45,24 @@ export class ScheduleItemComponent implements OnInit {
     public bookEvent(event: ScheduleEvent): void {
         this.popupControls.open();
         this.currentEvent = event;
-        console.log(event);
     }
 
-    public confirmEventBooking(event: ScheduleEvent): void {
-        console.log(event);
-        this.scheduleService.bookEvent('1', event.id, event.startTime)
-        .pipe(
-            finalize(() => {
-                // this.popupControls.close(); // TODO when data will be load from server, without delay
-                // this.isActionPerformed = false;
-            })
-        )
-        .subscribe(
-            res => {
-                this.isActionPerformed = true;
-                const dismissWait = () => {
-                    new Promise<void>((resolve) => setTimeout(resolve, 1000)).then(() => {
-                        this.notification.info(res);
-                        this.popupControls.close();
-                        this.isActionPerformed = false;
-                    });
-                  };
-                dismissWait();
-            },
-            err => this.notification.error(err));
+    public confirmEventBooking(): void {
+        this.isActionPerformed = true;
+        this.scheduleService.bookEvent(this.localStorageService.getFromLocalStorage(LOGIN),
+            this.currentEvent.id)
+            .pipe(
+                finalize(() => {
+                    this.popupControls.close();
+                    this.isActionPerformed = false;
+                })
+            )
+            .subscribe(
+                res => {
+                    this.updateScheduleInfo.emit();
+                    this.notification.success(SUCCESSFULLY_BOOKED);
+                },
+                err => this.notification.error(BOOKING_ERROR));
     }
 
     public closePopup(): void {

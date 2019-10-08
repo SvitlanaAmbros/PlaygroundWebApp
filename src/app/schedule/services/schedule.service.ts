@@ -2,33 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
 import { schedule } from '@schedule/mock/schedule-days.mock';
 
-export const GET_SCHEDULE_FOR_PERIOD = '/schedule';
-export const BOOK_EVENT = '/book';
+export const GET_SCHEDULE_FOR_PERIOD = '/events';
+export const BOOK_EVENT = '/events/book';
 
 @Injectable()
 export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  public getScheduleForPeriod(day: number): Observable<ScheduleDay[]> {
-    const params = new HttpParams()
-      .set('day', day.toString());
-    // return this.http.get<ScheduleDay[]>(GET_SCHEDULE_FOR_PERIOD, { params });
-    return of(schedule).pipe(
+  public getScheduleForPeriod(): Observable<ScheduleDay[]> {
+    // const params = new HttpParams()
+    //   .set('day', day.toString());
+    // return of(schedule)
+    return this.http.get<ScheduleDay[]>(GET_SCHEDULE_FOR_PERIOD).pipe(
       map((data: ScheduleDay[]) => {
         return data.map((item: ScheduleDay) => {
-          return {...item, dateUI: this.getDateFromString(item.date)};
+          return { ...item, dateUI: this.getDateFromString(item.date) };
         });
       })
     );
   }
 
-  public  getDateFromString(date): Date {
+  public getDateFromString(date): Date {
     const splitedDate = date.split('.');
 
     // const day = splitedDate[0];
@@ -42,14 +42,16 @@ export class ScheduleService {
     return formatedDate;
   }
 
-  public bookEvent(userId: string, eventId: string, time: string): Observable<string> {
-    const params = new HttpParams()
-      .set('userId', userId)
-      .set('eventId', eventId)
-      .set('time', time);
-    // return this.http.post(BOOK_EVENT, params).pipe(
-    //   map(res => 'Event was successfully booked')
-    // );
-    return of('Event was successfully booked');
+  public bookEvent(userId: string, eventId: string): Observable<any> {
+    // const params = new HttpParams()
+    //   .set('userId', userId)
+    //   .set('eventId', eventId);
+    console.log('ID', eventId);
+    const data = {
+      userId: userId,
+      eventId: eventId
+    };
+    return this.http.post(BOOK_EVENT, data);
+    // return of('Event was successfully booked');
   }
 }

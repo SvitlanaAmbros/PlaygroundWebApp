@@ -4,7 +4,7 @@
             <div *ngIf="(scheduleData | async) as schedule">
                 <div class="schedule-row">
                     <div class="schedule-col" *ngFor="let dayData of schedule">
-                        <app-schedule-item [data]="dayData"></app-schedule-item>
+                        <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()"></app-schedule-item>
                     </div>
                 </div>
             </div>
