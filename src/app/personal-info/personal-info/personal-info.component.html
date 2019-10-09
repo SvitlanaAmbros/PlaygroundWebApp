@@ -2,7 +2,9 @@
   <div class="container">
     <div class="personal-info">
       <div class="personal-info__header">
-        <p>Personal Info</p>
+        <div class="title">
+          Personal Info
+        </div>
         <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
           (clicked)="editPersonalInfo()"></app-action-btn>
         <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"

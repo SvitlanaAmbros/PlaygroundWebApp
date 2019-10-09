@@ -1,6 +1,7 @@
 <button class="action-btn" 
   [ngClass]="[isAvailable ? 'available' : 'no-available', 
     hasBorder? 'available_border' : 'available_background']" 
+  class="{{colorStyle}}"
   [disabled]="!isAvailable"
   (click)="onClick()">
     <div class="" *ngIf="isAvailable">

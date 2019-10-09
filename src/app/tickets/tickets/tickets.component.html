@@ -1,3 +1,23 @@
-<p>
-  tickets works!
-</p>
+<div class="tickets-wrap">
+  <div class="container">
+    <div class="tickets">
+      <div *ngIf="(tickets | async) as userTickets; else loading">
+        <div class="title">
+          Your actual tickets
+        </div>
+        <div *ngIf="userTickets.length !== 0">
+          <div *ngFor="let dayData of userTickets">
+            <app-ticket-event [data]="dayData" (updateTickets)="updateTicketsInfo()"></app-ticket-event>
+            <!-- <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()"></app-schedule-item> -->
+          </div>
+        </div>
+        <div *ngIf="userTickets.length === 0" class="tickets__no-tickets">
+          No Actual Tickets
+        </div>
+      </div>
+      <ng-template #loading>
+        Tickets data is loading ...
+      </ng-template>
+    </div>
+  </div>
+</div>

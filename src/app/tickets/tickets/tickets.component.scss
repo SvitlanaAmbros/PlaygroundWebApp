@@ -1,0 +1,27 @@
+@import '../../shared/color.constants.scss';
+
+.tickets {
+    padding: 30px;
+    background: $white-color;
+    box-shadow: 10px 10px 10px $grey-color;
+    min-height: 75vh;
+    // max-height: 75vh;
+
+    &-wrap {
+        padding: 10px 30px;
+        border: 2px solid $dark-primary-color;
+        background: $light-grey-color; 
+    }
+
+    // &__title {
+    //     text-align: center;
+    // }
+
+    &__no-tickets {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $middle-grey-color;
+    }
+}

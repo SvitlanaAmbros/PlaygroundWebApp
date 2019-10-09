@@ -1,15 +1,19 @@
 <div class="schedule-wrap">
     <div class="container">
         <div class="schedule">
-            <div *ngIf="(scheduleData | async) as schedule">
+            <div *ngIf="(scheduleData | async) as schedule; else loading">
+                <div class="title">
+                    Playground Schedule
+                </div>
                 <div class="schedule-row">
                     <div class="schedule-col" *ngFor="let dayData of schedule">
-                        <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()"></app-schedule-item>
+                        <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()">
+                        </app-schedule-item>
                     </div>
                 </div>
             </div>
             <ng-template #loading>
-                Schedule data is loading
+                Schedule data is loading ...
             </ng-template>
         </div>
     </div>

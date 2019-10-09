@@ -1,0 +1,33 @@
+<div>
+    <div *ngFor="let event of data.events">
+        <div class="tickets-row">
+            <div>
+                {{data?.date}}
+            </div>
+            <div>
+                {{ event?.startTime }} - {{event?.endTime }}
+            </div>
+            <div>
+                {{ event?.sportType }}
+            </div>
+            <div>
+                <app-action-btn 
+                    [availableMessage]="'Unbook'"
+                    [colorStyle]="'red'"
+                    (clicked)="unbookEvent(event)">
+                    <i *ngIf="isActionPerformed" class="fa fa-spinner fa-spin"></i>
+                </app-action-btn>
+            </div>
+        </div>
+        <app-popup 
+            #popup
+            *ngIf="popupControls.isOpened" 
+            [header]="'Are you sure you want to unbook this event?'"
+            [buttonAction]="'Yes'" 
+            [buttonCancel]="'No'" 
+            (onAction)="confirm(event)"
+            (onClose)="closePopup()"
+            [isActionPerformed]="isActionPerformed">
+        </app-popup>
+    </div>
+</div>

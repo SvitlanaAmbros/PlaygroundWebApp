@@ -14,6 +14,8 @@ export class ActionBtnComponent implements OnInit {
   @Input() availableMessage = 'Order';
   @Input() noAvailableMessage = 'Disabled';
   @Input() hasBorder = false;
+  @Input() colorStyle: 'default' | 'red' = 'default';
+
   @Output() clicked = new EventEmitter();
 
   constructor() { }
