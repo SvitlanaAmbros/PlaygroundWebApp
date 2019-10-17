@@ -22,3 +22,11 @@
     }
 }
 
+.filter {
+    margin: 20px 30px;
+
+    &__select {
+        padding: 4px 5px;
+        border-radius: 2px;
+    }
+}

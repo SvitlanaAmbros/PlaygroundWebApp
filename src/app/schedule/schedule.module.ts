@@ -8,6 +8,7 @@ import { ScheduleItemComponent } from '@schedule/schedule-item/schedule-item.com
 import { ScheduleService } from '@schedule/services/schedule.service';
 
 import { SharedModule } from '@shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     ScheduleService

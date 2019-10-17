@@ -3,6 +3,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
 import { ScheduleService } from '@schedule/services/schedule.service';
+import { SPORT_TYPES } from './sport-types.constant';
+import { WeekDay } from '@angular/common';
+import { map } from 'rxjs/operators/map';
+import { ScheduleEvent } from '../models/schedule-event.model';
 
 @Component({
     selector: 'app-schedule',
@@ -10,7 +14,9 @@ import { ScheduleService } from '@schedule/services/schedule.service';
     styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
-    public scheduleData: Observable<ScheduleDay[]>;
+    public sportTypes = SPORT_TYPES;
+    public currentSportType = 'All';
+    public scheduleData: ScheduleDay[];
     constructor(private scheduleService: ScheduleService) { }
 
     ngOnInit() {
@@ -19,6 +25,29 @@ export class ScheduleComponent implements OnInit {
     }
 
     public loadScheduleInfo(): void {
-        this.scheduleData = this.scheduleService.getScheduleForPeriod();
+        this.scheduleService.getScheduleForPeriod().subscribe(res => {
+            this.scheduleData = res;
+        });
+    }
+
+    public changeSportType(): void {
+        if (this.currentSportType === 'All') {
+            this.scheduleService.getScheduleForPeriod().subscribe(res => {
+                this.scheduleData = res;
+            });
+        } else {
+            this.scheduleService.getScheduleForPeriod().subscribe(res => {
+                this.scheduleData = res;
+                this.scheduleData = this.scheduleData
+                    .map((day: ScheduleDay) => {
+                        return {
+                            ...day,
+                            events: day.events
+                                .filter((event: ScheduleEvent) => event.sportType === this.currentSportType)
+                        };
+                    })
+                    .filter((day: ScheduleDay) => day.events.length > 0 );
+            });
+        }
     }
 }
