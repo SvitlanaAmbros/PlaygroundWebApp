@@ -32,7 +32,7 @@ export class PersonalInfoComponent implements OnInit {
 
     this.userService.getBaseUserInfo().subscribe(user => {
       this.user = { ...user, isStudent: !!user.studentTicket};
-      this.changedIsStudentValue();
+      // this.changedIsStudentValue();
       console.log('User from storage', this.user);
     });
   }
@@ -74,44 +74,40 @@ export class PersonalInfoComponent implements OnInit {
         Validators.pattern('^[a-zA-Z]{2,}$'),
         Validators.required
       ])],
-      email: [this.user.login, Validators.compose([
-        Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
-        Validators.required
-      ])],
       password: [this.user.password, Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])],
-      confirmedPassword: [this.user.confirmPassword, Validators.compose([
+      confirmPassword: [this.user.confirmPassword, Validators.compose([
         Validators.required,
         Validators.minLength(4)
       ])],
-      isStudent: [this.user.isStudent],
-      tickets: new FormArray([])
+      // isStudent: [this.user.isStudent],
+      // tickets: new FormArray([])
     });
   }
 
-  get f() { return this.dynamicForm.controls; }
-  get t() { return this.f.tickets as FormArray; }
+  // get f() { return this.dynamicForm.controls; }
+  // get t() { return this.f.tickets as FormArray; }
 
-  public changedIsStudentValue() {
-    if (this.user.isStudent) {
-      this.t.push(this.formBuilder.group({
-        studentTicket: [this.user.studentTicket, Validators.compose([
-          Validators.pattern('^KB[1-9]{6}$'),
-          Validators.required
-        ])],
-      }));
-    } else {
-      this.submitted = false;
-      this.t.removeAt(1);
-      delete this.user.studentTicket;
+  // public changedIsStudentValue() {
+  //   if (this.user.isStudent) {
+  //     this.t.push(this.formBuilder.group({
+  //       studentTicket: [this.user.studentTicket, Validators.compose([
+  //         Validators.pattern('^KB[1-9]{6}$'),
+  //         Validators.required
+  //       ])],
+  //     }));
+  //   } else {
+  //     this.submitted = false;
+  //     this.t.removeAt(1);
+  //     delete this.user.studentTicket;
 
-      while (this.t.length !== 0) {
-        this.t.removeAt(0);
-      }
-    }
-  }
+  //     while (this.t.length !== 0) {
+  //       this.t.removeAt(0);
+  //     }
+  //   }
+  // }
 
   public isFormInvalid(form: FormGroup, field): boolean {
     return form.invalid &&

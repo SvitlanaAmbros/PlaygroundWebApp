@@ -7,9 +7,6 @@
         </div>
         <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
           (clicked)="editPersonalInfo()"></app-action-btn>
-        <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
-          (clicked)="savePersonalInfo()">
-          <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i></app-action-btn>
       </div>
       <div *ngIf="!isEdited">
         <div class="row">
@@ -39,7 +36,11 @@
           <form [formGroup]="dynamicForm" novalidate>
             <div class="row">
               <label for="login" class="form__label">Login ( Your Email ): </label>
-              <span>{{ user.login }}</span>
+              <span>{{ user?.login }}</span>
+            </div>
+            <div class="row">
+              <label for="login" class="form__label">Student Ticket </label>
+              <span>{{ user?.studentTicket }}</span>
             </div>
             <div class="form__row">
               <label class="form__label">Name</label>
@@ -65,18 +66,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="form__row">
-              <label class="form__label">Email</label>
-              <input type="text" formControlName="email" [(ngModel)]="user.login" class="form__value">
-              <div *ngIf="isFormInvalid(dynamicForm, 'email')">
-                <div *ngIf="dynamicForm?.controls['email']?.errors?.pattern">
-                  Not right email format
-                </div>
-                <div *ngIf="dynamicForm?.controls['email']?.errors?.required">
-                  * Email is obligatory field
-                </div>
-              </div>
-            </div> -->
             <div class="form__row">
               <label class="form__label">Password</label>
               <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
@@ -89,39 +78,33 @@
                 </div>
               </div>
             </div>
-            <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
-              (change)="changedIsStudentValue($event)">Student
 
-            <div *ngFor="let ticket of t.controls; let i = index">
-              <div [formGroup]="ticket">
-                <div class="form__row">
-                  <label class="form__label">Student Ticket</label>
-                  <input type="text" formControlName="studentTicket" [(ngModel)]="user.studentTicket"
-                    class="form__value">
-                  <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
-                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
-                      <div>
-                        Student ticket not right
-                      </div>
-                      <div>
-                        Example Format: 'KB123456'
-                      </div>
-                    </div>
-                    <!-- <div class="form__row">
-                        <label class="form__label">Password</label> -->
-                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.required">
-                      * Student ticket is obligatory field
-                    </div>
-                    <!-- </div> -->
-                  </div>
+            <div class="form__row">
+              <label class="form__label">Confirm Password</label>
+              <input type="text" formControlName="confirmPassword"
+                [(ngModel)]="user.confirmPassword" class="form__value">
+              <div *ngIf="isFormInvalid(dynamicForm, 'confirmPassword')">
+                <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.minlength">
+                  Confirm Password must be at least 3 characters long.
                 </div>
-
-
+                <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.required">
+                  * Confirm Password is obligatory field
+                </div>
+              </div>
+              <div *ngIf="!passwordIsEqual">
+                Password and Confirm Password must be the same
               </div>
             </div>
 
-            <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
-              [isAvailable]="dynamicForm.valid"></app-action-btn>
+            <!-- <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
+              (change)="changedIsStudentValue($event)">Student -->
+
+            <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
+              [noAvailableMessage]="'Save'" (clicked)="savePersonalInfo()" [isAvailable]="dynamicForm.valid">
+              <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i></app-action-btn>
+
+            <!-- <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
+              [isAvailable]="dynamicForm.valid"></app-action-btn> -->
             <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
           </form>
         </div>

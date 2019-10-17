@@ -25,16 +25,18 @@
         padding: 20px 0;
         text-align: center;
         border: 1px solid $light-grey-color;
+        background: $light-primary-color;
+        color: $white-color;
         cursor: pointer;
     }
 }
 
 .active {
-    background: $light-primary-color;
+    background: $white-color;
 
     a {
         text-decoration: none;
         font-weight: 600;
-        color: $white-color;
+        // color: $white-color;
     }
 }
