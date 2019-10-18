@@ -1,10 +1,10 @@
 export const authorizationMenu = [
     {
-        title: 'Авторизація',
+        title: 'Authorization',
         url: '/authorization/login'
     },
     {
-        title: 'Реєстрація',
+        title: 'Registration',
         url: '/authorization/register'
     }
 ];

@@ -18,7 +18,6 @@ import { UserInfo } from '@shared/models/user-info.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public title = 'Log in';
   public dynamicForm: FormGroup;
   public isActionPerformed = false;
 

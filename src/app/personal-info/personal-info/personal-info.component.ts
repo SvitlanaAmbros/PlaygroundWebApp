@@ -31,14 +31,12 @@ export class PersonalInfoComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
 
-    this.userService.getBaseUserInfo().subscribe(user => {
-      this.user = { ...user, isStudent: !!user.studentTicket, confirmPassword: user.password };
-      console.log('User from storage', this.user);
-    });
+    this.getUserinfo();
   }
 
   public cancel(): void {
     this.toggleEditing();
+    this.getUserinfo();
   }
 
   public editPersonalInfo(): void {
