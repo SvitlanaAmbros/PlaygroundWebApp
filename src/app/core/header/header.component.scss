@@ -18,21 +18,21 @@
 }
 
 .user {
-    font-size: 30px;
+    font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    // cursor: pointer;
 
-    &:before {
-        content: '';
-        display: inline-block;
-        margin: 3px -31px 0 0;
-        background: $accent-color;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-    }
+    // &:before {
+    //     content: '';
+    //     display: inline-block;
+    //     margin: 3px -31px 0 0;
+    //     background: $accent-color;
+    //     border-radius: 50%;
+    //     width: 40px;
+    //     height: 40px;
+    // }
 
     &:hover:before {
         background: $dark-accent-color;
@@ -40,11 +40,41 @@
 
     &__login {
         margin: 0 20px;
+        color: $accent-color;
     }
+    
 }
 
 .title {
     margin-right: 100px;
     font-size: 22px;
     color: $white-color;
+}
+
+.logout-icon {
+    cursor: pointer;
+}
+
+.logout-window {
+    display: none;
+    position: absolute;
+    top: 65px;
+    right: 80px;
+    padding: 20px 25px;
+    background: $white-color;
+    border-radius: 5px 0 5px 5px;
+    box-shadow: 3px 4px 12px $dark-grey-color;
+    border: 2px solid $middle-grey-color;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+#logout {
+    &:checked {
+        ~ .logout-window {
+            display: block;
+        }
+    }
 }

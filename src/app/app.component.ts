@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
       this.user = this.localStorage.getUserInfoFromLocalStorage();
       // this.userService.updateUserInfo(this.user);
-      this.router.navigateByUrl('schedule');
+      this.router.navigateByUrl('personal-user-info');
       this.isAuthenticated = true;
       console.log('User', this.user);
     }

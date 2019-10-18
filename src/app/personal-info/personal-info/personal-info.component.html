@@ -1,14 +1,19 @@
 <div class="personal-info-wrap">
   <div class="container">
     <div class="personal-info">
-      <div class="personal-info__header">
-        <div class="title">
-          Personal Info
-        </div>
-        <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
-          (clicked)="editPersonalInfo()"></app-action-btn>
-      </div>
+      <!-- Start personal info -->
       <div *ngIf="!isEdited">
+        <div class="personal-info__header">
+          <div class="title">
+            Personal Info
+          </div>
+          <app-action-btn *ngIf="!isEdited" class="personal-info__btn" [availableMessage]="'Edit'" [hasBorder]="true"
+            (clicked)="editPersonalInfo()"></app-action-btn>
+        </div>
+        <div class="row">
+          <label for="login" class="form__label">Login ( Your Email ): </label>
+          <span>{{ user.login }}</span>
+        </div>
         <div class="row">
           <label for="name" class="form__label">Name: </label>
           <span>{{ user?.name }}</span>
@@ -18,28 +23,41 @@
           <span>{{ user?.surname }}</span>
         </div>
         <div class="row">
-          <label for="login" class="form__label">Login ( Your Email ): </label>
-          <span>{{ user.login }}</span>
-        </div>
-        <div class="row">
           <label for="password" class="form__label">Password: </label>
           <span>{{ user?.password }}</span>
         </div>
-        <div class="row" *ngIf="user?.isStudent">
+        <div class="row" *ngIf="user?.studentTicket">
           <label for="student-ticket" class="form__label">Student`s Ticket: </label>
           <span>{{ user?.studentTicket }}</span>
         </div>
       </div>
+      <!-- EOF personal info -->
+
+      <!-- start editing personal info -->
       <div *ngIf="isEdited">
         <div class="form">
-          <p class="form__title">{{ title }}</p>
           <form [formGroup]="dynamicForm" novalidate>
+            <div class="personal-info__header">
+              <div class="title">
+                Editing Personal Info
+              </div>
+              <div class="personal-info__btns">
+                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Cancel'" [noAvailableMessage]="'Cancel'"
+                  (clicked)="cancel()"
+                  [hasBorder]="true">
+                </app-action-btn>
+                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'" [noAvailableMessage]="'Save'"
+                  (clicked)="savePersonalInfo()" 
+                  [isAvailable]="dynamicForm.valid && user.password == user.confirmPassword">
+                </app-action-btn>
+              </div>
+            </div>
             <div class="row">
               <label for="login" class="form__label">Login ( Your Email ): </label>
               <span>{{ user?.login }}</span>
             </div>
             <div class="row">
-              <label for="login" class="form__label">Student Ticket </label>
+              <label for="login" class="form__label">Student Ticket: </label>
               <span>{{ user?.studentTicket }}</span>
             </div>
             <div class="form__row">
@@ -68,7 +86,7 @@
             </div>
             <div class="form__row">
               <label class="form__label">Password</label>
-              <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
+              <input type="password" formControlName="password" [(ngModel)]="user.password" class="form__value">
               <div *ngIf="isFormInvalid(dynamicForm, 'password')">
                 <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
                   Password must be at least 3 characters long.
@@ -81,8 +99,8 @@
 
             <div class="form__row">
               <label class="form__label">Confirm Password</label>
-              <input type="text" formControlName="confirmPassword"
-                [(ngModel)]="user.confirmPassword" class="form__value">
+              <input type="password" formControlName="confirmPassword" [(ngModel)]="user.confirmPassword"
+                class="form__value">
               <div *ngIf="isFormInvalid(dynamicForm, 'confirmPassword')">
                 <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.minlength">
                   Confirm Password must be at least 3 characters long.
@@ -91,24 +109,14 @@
                   * Confirm Password is obligatory field
                 </div>
               </div>
-              <div *ngIf="!passwordIsEqual">
+              <div *ngIf="user.password !== user.confirmPassword">
                 Password and Confirm Password must be the same
               </div>
             </div>
-
-            <!-- <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
-              (change)="changedIsStudentValue($event)">Student -->
-
-            <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
-              [noAvailableMessage]="'Save'" (clicked)="savePersonalInfo()" [isAvailable]="dynamicForm.valid">
-              <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i></app-action-btn>
-
-            <!-- <app-action-btn [availableMessage]="'Register'" [noAvailableMessage]="'Register'" (clicked)="register()"
-              [isAvailable]="dynamicForm.valid"></app-action-btn> -->
-            <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
           </form>
         </div>
       </div>
+      <!-- EOF editing personal info -->
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 @import '../../shared/color.constants.scss';
 
 .personal-info {
-    padding: 30px;
+    padding: 50px 100px;
     background: $white-color;
     box-shadow: 10px 10px 10px $grey-color;
     min-height: 75vh;
@@ -18,8 +18,15 @@
     }
 
     &__btn {
+        margin: 0 5px;
         width: 100px;
     }
+
+    &__btns {
+        display: flex;
+        justify-content: space-around;
+    }
+    
 }
 
 .row {
@@ -28,5 +35,9 @@
     & span {
         padding-left: 10px;
     }
+}
+
+.form__row {
+    margin: 4px 0;
 }
 

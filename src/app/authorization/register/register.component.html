@@ -101,14 +101,15 @@
 
       </div>
     </div>
-
-    <app-action-btn 
-      [availableMessage]="'Register'" 
-      [noAvailableMessage]="'Register'" 
-      (clicked)="register()"
-      [isAvailable]="dynamicForm.valid && passwordIsEqual">
-      <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i>
-    </app-action-btn>
+    <div class="form__btn">
+      <app-action-btn 
+        [availableMessage]="'Register'" 
+        [noAvailableMessage]="'Register'" 
+        (clicked)="register()"
+        [isAvailable]="dynamicForm.valid && passwordIsEqual">
+        <i *ngIf="isActionPerformed" class="spinner fa fa-spinner fa-spin"></i>
+      </app-action-btn>
+    </div>
     <!-- <button type="submit" [disabled]="!dynamicForm.valid">Submit</button> -->
   </form>
 </div>

@@ -16,6 +16,7 @@ export class PersonalInfoComponent implements OnInit {
     surname: undefined,
     login: undefined,
     password: undefined,
+    confirmPassword: undefined,
     studentTicket: undefined,
   };
   public isEdited = false;
@@ -31,18 +32,27 @@ export class PersonalInfoComponent implements OnInit {
     this.initializeForm();
 
     this.userService.getBaseUserInfo().subscribe(user => {
-      this.user = { ...user, isStudent: !!user.studentTicket};
+      this.user = { ...user, isStudent: !!user.studentTicket, confirmPassword: user.password};
       // this.changedIsStudentValue();
       console.log('User from storage', this.user);
     });
   }
 
+  public cancel(): void {
+    this.toggleEditing();
+  }
+
   public editPersonalInfo(): void {
-    this.isEdited = !this.isEdited;
+    this.toggleEditing();
+
+    this.userService.getBaseUserInfo().subscribe(user => {
+      this.user = { ...user, confirmPassword: user.password};
+      console.log('User from storage', this.user);
+    });
   }
 
   public savePersonalInfo(): void {
-    this.isEdited = !this.isEdited;
+    this.toggleEditing();
 
     console.log('@@@', this.user);
     this.isActionPerformed = true;
@@ -63,6 +73,9 @@ export class PersonalInfoComponent implements OnInit {
   //   studentTicket: 'KB111111'
   // };
 
+  public toggleEditing(): void {
+    this.isEdited = !this.isEdited;
+  }
 
   private initializeForm(): void {
     this.dynamicForm = this.formBuilder.group({
@@ -82,39 +95,15 @@ export class PersonalInfoComponent implements OnInit {
         Validators.required,
         Validators.minLength(4)
       ])],
-      // isStudent: [this.user.isStudent],
-      // tickets: new FormArray([])
     });
   }
-
-  // get f() { return this.dynamicForm.controls; }
-  // get t() { return this.f.tickets as FormArray; }
-
-  // public changedIsStudentValue() {
-  //   if (this.user.isStudent) {
-  //     this.t.push(this.formBuilder.group({
-  //       studentTicket: [this.user.studentTicket, Validators.compose([
-  //         Validators.pattern('^KB[1-9]{6}$'),
-  //         Validators.required
-  //       ])],
-  //     }));
-  //   } else {
-  //     this.submitted = false;
-  //     this.t.removeAt(1);
-  //     delete this.user.studentTicket;
-
-  //     while (this.t.length !== 0) {
-  //       this.t.removeAt(0);
-  //     }
-  //   }
-  // }
 
   public isFormInvalid(form: FormGroup, field): boolean {
     return form.invalid &&
       (form.controls[field].dirty || form.controls[field].touched);
   }
 
-  public register(): void {
-    console.log(this.user);
-  }
+  // public register(): void {
+  //   console.log(this.user);
+  // }
 }

@@ -11,12 +11,20 @@
                     </div>
                 </ng-template>
             </div>
-            <div class="user" *ngIf="isAuthenticated" 
-                (click)="logOut()">
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="user__login">
-                {{ userLogin }}
+            <div class="user" *ngIf="isAuthenticated">
+                <div class="user__login">
+                    {{ userLogin }}
+                </div>
+                <div class="user__logout">
+                    <input type="checkbox" id="logout" hidden>
+                    <label for="logout">
+                        <i class="fa fa-sort-down logout-icon"></i>
+                    </label>
+                    <div class="logout-window">
+                        <app-action-btn class="personal-info__btn" [availableMessage]="'Log Out'" (clicked)="logOut()">
+                        </app-action-btn>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
