@@ -19,6 +19,7 @@ export const UNBOOKING_ERROR = 'Some error occured';
 })
 export class TicketEventComponent implements OnInit {
     @Input() data: ScheduleDay;
+    @Input() isOdd = false;
     @Output() updateTickets = new EventEmitter();
 
     public popupControls: PopupControls;

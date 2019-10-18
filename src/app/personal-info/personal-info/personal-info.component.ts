@@ -32,8 +32,7 @@ export class PersonalInfoComponent implements OnInit {
     this.initializeForm();
 
     this.userService.getBaseUserInfo().subscribe(user => {
-      this.user = { ...user, isStudent: !!user.studentTicket, confirmPassword: user.password};
-      // this.changedIsStudentValue();
+      this.user = { ...user, isStudent: !!user.studentTicket, confirmPassword: user.password };
       console.log('User from storage', this.user);
     });
   }
@@ -44,9 +43,11 @@ export class PersonalInfoComponent implements OnInit {
 
   public editPersonalInfo(): void {
     this.toggleEditing();
+  }
 
+  public getUserinfo(): void {
     this.userService.getBaseUserInfo().subscribe(user => {
-      this.user = { ...user, confirmPassword: user.password};
+      this.user = { ...user, confirmPassword: user.password };
       console.log('User from storage', this.user);
     });
   }

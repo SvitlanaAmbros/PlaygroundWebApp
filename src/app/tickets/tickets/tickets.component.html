@@ -6,8 +6,8 @@
           Your actual tickets
         </div>
         <div *ngIf="userTickets.length !== 0">
-          <div *ngFor="let dayData of userTickets">
-            <app-ticket-event [data]="dayData" (updateTickets)="updateTicketsInfo()"></app-ticket-event>
+          <div *ngFor="let dayData of userTickets; let ind = index">
+            <app-ticket-event [isOdd]="ind % 2 !== 0" [data]="dayData" (updateTickets)="updateTicketsInfo()"></app-ticket-event>
             <!-- <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()"></app-schedule-item> -->
           </div>
         </div>

@@ -1,4 +1,4 @@
-<div>
+<div [ngClass]="isOdd ? 'odd' : false">
     <div *ngFor="let event of data.events">
         <div class="tickets-row">
             <div>

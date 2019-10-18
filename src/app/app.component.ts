@@ -20,11 +20,6 @@ export class AppComponent implements OnInit {
   public isAuthenticated = false;
 
   public user: UserInfo;
-  // user: LoginUserInfo = {
-  //   login: '',
-  //   password: ''
-  // };
-
   public subscription: Subscription;
 
   constructor(private localStorage: LocalStorageService,
@@ -34,10 +29,11 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (!!this.localStorage.getFromLocalStorage(LOGIN)) {
       this.user = this.localStorage.getUserInfoFromLocalStorage();
-      // this.userService.updateUserInfo(this.user);
-      this.router.navigateByUrl('personal-user-info');
+      this.router.navigateByUrl('schedule');
       this.isAuthenticated = true;
       console.log('User', this.user);
+    } else {
+      this.router.navigateByUrl('authorization');
     }
     this.subscription = this.userService.getUserInfo().subscribe(
       user => {
@@ -50,16 +46,5 @@ export class AppComponent implements OnInit {
         }
         console.log('User login', this.user, this.isAuthenticated);
       });
-    // }
-    // console.log(this.localStorage.getFromLocalStorage('123'));
-
-
-    // console.log('');
-    // this.localStorage.saveInLocalStorage('user', '');
-    // this.localStorage.saveInLocalStorage('password', '');
-    // this.localStorage.saveInLocalStorage('isAuthenticated', false);
-    // this.user.login = this.localStorage.getFromLocalStorage('login');
-    // this.user.password = this.localStorage.getFromLocalStorage('password');
-    // this.user.isAuthenticated = this.localStorage.getFromLocalStorage('isAuthenticated');
   }
 }

@@ -17,7 +17,7 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          redirectTo: '/authorization/register',
+          redirectTo: '/authorization/login',
           pathMatch: 'full'
         },
         {
