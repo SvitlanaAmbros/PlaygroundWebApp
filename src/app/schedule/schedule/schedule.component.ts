@@ -17,41 +17,43 @@ export class ScheduleComponent implements OnInit {
     public sportTypes;
     public currentSportType = 'All';
     // public isDataLoading = false;
-    public scheduleData: ScheduleDay[];
+    public scheduleData: Observable<ScheduleDay[]>;
     constructor(private scheduleService: ScheduleService) { }
 
     ngOnInit() {
-        this.loadScheduleInfo();
+        this.loadScheduleInfo(this.currentSportType);
         this.sportTypes = SPORT_TYPES;
         // this.scheduleData = this.scheduleService.getScheduleForPeriod(2);
     }
 
-    public loadScheduleInfo(): void {
+    public loadScheduleInfo(type: string = this.currentSportType): void {
         // this.isDataLoading = true;
-        this.scheduleService.getScheduleForPeriod()
-            .subscribe(res => {
-                this.scheduleData = res;
-            });
+        this.scheduleData = this.scheduleService.getScheduleForPeriod(type);
+            // .subscribe(res => {
+            //     this.scheduleData = res;
+            // });
     }
 
     public changeSportType(): void {
-        if (this.currentSportType === 'All') {
-            this.scheduleService.getScheduleForPeriod().subscribe(res => {
-                this.scheduleData = res;
-            });
-        } else {
-            this.scheduleService.getScheduleForPeriod().subscribe(res => {
-                this.scheduleData = res;
-                this.scheduleData = this.scheduleData
-                    .map((day: ScheduleDay) => {
-                        return {
-                            ...day,
-                            events: day.events
-                                .filter((event: ScheduleEvent) => event.sportType === this.currentSportType)
-                        };
-                    })
-                    .filter((day: ScheduleDay) => day.events.length > 0);
-            });
-        }
+        // if (this.currentSportType === 'All') {
+            this.loadScheduleInfo(this.currentSportType);
+            // this.scheduleService.getScheduleForPeriod().subscribe(res => {
+            //     this.scheduleData = res;
+            // });
+        // }
+        // else {
+        //     this.scheduleService.getScheduleForPeriod().subscribe(res => {
+        //         this.scheduleData = res;
+        //         this.scheduleData = this.scheduleData
+        //             .map((day: ScheduleDay) => {
+        //                 return {
+        //                     ...day,
+        //                     events: day.events
+        //                         .filter((event: ScheduleEvent) => event.sportType === this.currentSportType)
+        //                 };
+        //             })
+        //             .filter((day: ScheduleDay) => day.events.length > 0);
+        //     });
+        // }
     }
 }

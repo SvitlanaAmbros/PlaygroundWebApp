@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
 import { schedule } from '@schedule/mock/schedule-days.mock';
+import { ScheduleEvent } from '../models/schedule-event.model';
 
 export const GET_SCHEDULE_FOR_PERIOD = '/events';
 export const BOOK_EVENT = '/events/book';
@@ -15,16 +16,33 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  public getScheduleForPeriod(): Observable<ScheduleDay[]> {
+  public getScheduleForPeriod(sportType: string): Observable<ScheduleDay[]> {
     // const params = new HttpParams()
     //   .set('day', day.toString());
     // return of(schedule)
+    if (sportType !== 'All') {
+      return this.http.get<ScheduleDay[]>(GET_SCHEDULE_FOR_PERIOD).pipe(
+        map((data: ScheduleDay[]) => {
+          return data.map((item: ScheduleDay) => {
+            return { ...item, dateUI: this.getDateFromString(item.date) };
+          })
+            .sort((a: ScheduleDay, b: ScheduleDay) => a.dateUI.getTime() - b.dateUI.getTime())
+            .map((day: ScheduleDay) => {
+              return {
+                ...day,
+                events: day.events
+                  .filter((event: ScheduleEvent) => event.sportType === sportType)
+              };
+            })
+            .filter((day: ScheduleDay) => day.events.length > 0);
+        })
+      );
+    }
     return this.http.get<ScheduleDay[]>(GET_SCHEDULE_FOR_PERIOD).pipe(
       map((data: ScheduleDay[]) => {
         return data.map((item: ScheduleDay) => {
           return { ...item, dateUI: this.getDateFromString(item.date) };
-        })
-        .sort((a: ScheduleDay, b: ScheduleDay) => a.dateUI.getTime() - b.dateUI.getTime());
+        });
       })
     );
   }

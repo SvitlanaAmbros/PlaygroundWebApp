@@ -5,23 +5,23 @@
                 Playground Schedule
             </div>
             <div class="filter">
-                <select class="filter__select select selectpicker" [(ngModel)]="currentSportType"
+                <select class="filter__select custom-select custom-select-sm" [(ngModel)]="currentSportType"
                     (ngModelChange)="changeSportType()">
                     <option *ngFor="let sport of sportTypes" class="select__option" [value]="sport">{{ sport }}</option>
                 </select>
             </div>
             <div>
-                <!-- <div *ngIf="(scheduleData | async) as schedule; else loading"> -->
-                <div class="schedule-row">
-                    <div class="schedule-col" *ngFor="let dayData of scheduleData">
-                        <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()">
-                        </app-schedule-item>
+                <div *ngIf="(scheduleData | async) as schedule; else loading">
+                    <div class="schedule-row">
+                        <div class="schedule-col" *ngFor="let dayData of schedule">
+                            <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()">
+                            </app-schedule-item>
+                        </div>
                     </div>
                 </div>
-                <!-- </div>
                 <ng-template #loading>
                     Schedule data is loading ...
-                </ng-template> -->
+                </ng-template>
             </div>
         </div>
     </div>
