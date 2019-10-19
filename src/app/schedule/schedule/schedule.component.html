@@ -4,14 +4,15 @@
             <div class="title">
                 Playground Schedule
             </div>
-            <div class="filter">
-                <select class="filter__select custom-select custom-select-sm" [(ngModel)]="currentSportType"
-                    (ngModelChange)="changeSportType()">
-                    <option *ngFor="let sport of sportTypes" class="select__option" [value]="sport">{{ sport }}</option>
-                </select>
-            </div>
             <div>
                 <div *ngIf="(scheduleData | async) as schedule; else loading">
+                    <div class="filter">
+                        <select class="filter__select custom-select custom-select-sm" [(ngModel)]="currentSportType"
+                            (ngModelChange)="changeSportType()">
+                            <option *ngFor="let sport of sportTypes" class="select__option" [value]="sport">{{ sport }}
+                            </option>
+                        </select>
+                    </div>
                     <div class="schedule-row">
                         <div class="schedule-col" *ngFor="let dayData of schedule">
                             <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()">
