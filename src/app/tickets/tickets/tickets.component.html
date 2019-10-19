@@ -1,13 +1,19 @@
 <div class="tickets-wrap">
   <div class="container">
     <div class="tickets">
+      <!-- start  tickets -->
       <div *ngIf="(tickets | async) as userTickets; else loading">
         <div class="title">
           Your actual tickets
         </div>
         <div *ngIf="userTickets.length !== 0">
-          <div *ngFor="let dayData of userTickets; let ind = index">
-            <app-ticket-event [isOdd]="ind % 2 !== 0" [data]="dayData" (updateTickets)="updateTicketsInfo()"></app-ticket-event>
+          <div *ngFor="let dayData of userTickets; let ind = index" class="tickets-day">
+            <div class="tickets-day__title" (click)="toggleTickets(dayData)">
+              Date: <span class="tickets-day__title-date">{{ dayData.date }}</span>
+              <i class="fa fa-sort-down tickets__icon-down" *ngIf="!dayData.isOpen"></i>
+              <i class="fa fa-sort-up" *ngIf="dayData.isOpen"></i>
+            </div>
+            <app-ticket-event *ngIf="dayData.isOpen" [data]="dayData" (updateTickets)="updateTicketsInfo()"></app-ticket-event>
             <!-- <app-schedule-item [data]="dayData" (updateScheduleInfo)="loadScheduleInfo()"></app-schedule-item> -->
           </div>
         </div>
@@ -15,9 +21,13 @@
           No Actual Tickets
         </div>
       </div>
+      <!-- EOF tickets -->
+
+      <!-- loading -->
       <ng-template #loading>
         Tickets data is loading ...
       </ng-template>
+      <!-- EOF loading -->
     </div>
   </div>
 </div>

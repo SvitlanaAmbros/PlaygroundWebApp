@@ -39,7 +39,7 @@
     </div>
     <div class="form__row">
       <label class="form__label">Password</label>
-      <input type="text" formControlName="password" [(ngModel)]="user.password" class="form__value">
+      <input type="password" formControlName="password" [(ngModel)]="user.password" class="form__value">
       <div *ngIf="isFormInvalid(dynamicForm, 'password')">
         <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
           Password must be at least 3 characters long.
@@ -52,7 +52,7 @@
 
     <div class="form__row">
       <label class="form__label">Confirm Password</label>
-      <input type="text" formControlName="confirmPassword" 
+      <input type="password" formControlName="confirmPassword" 
         (ngModelChange)="focusOutFunction()"
         [(ngModel)]="user.confirmPassword" 
         class="form__value">

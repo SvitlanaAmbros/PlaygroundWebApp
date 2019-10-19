@@ -1,9 +1,10 @@
-<div [ngClass]="isOdd ? 'odd' : false">
-    <div *ngFor="let event of data.events">
+<div>
+    <div *ngFor="let event of data.events; let ind = index" 
+        [ngClass]="isRowOdd(ind) ? 'odd-row' : false">
         <div class="tickets-row">
-            <div>
+            <!-- <div>
                 {{data?.date}}
-            </div>
+            </div> -->
             <div>
                 {{ event?.startTime }} - {{event?.endTime }}
             </div>

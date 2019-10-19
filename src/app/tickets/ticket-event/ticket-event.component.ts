@@ -5,8 +5,8 @@ import { NotificationService } from '@shared/services/notification.service';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
 import { TicketsService } from '@tickets/services/tickets.service';
-import { PopupControls, PopupService } from '@app/shared/services/popup.service';
-import { ScheduleEvent } from '@app/schedule/models/schedule-event.model';
+import { PopupControls, PopupService } from '@shared/services/popup.service';
+import { ScheduleEvent } from '@schedule/models/schedule-event.model';
 
 export const LOGIN = 'login';
 export const SUCCESSFULLY_UNBOOKED = 'Event was successfully unbooked';
@@ -65,5 +65,9 @@ export class TicketEventComponent implements OnInit {
 
     public closePopup(): void {
         this.popupControls.close();
+    }
+
+    public isRowOdd(ind: number): boolean {
+        return ind % 2 !== 0;
     }
 }

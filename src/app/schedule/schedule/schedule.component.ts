@@ -14,20 +14,24 @@ import { ScheduleEvent } from '../models/schedule-event.model';
     styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
-    public sportTypes = SPORT_TYPES;
+    public sportTypes;
     public currentSportType = 'All';
+    // public isDataLoading = false;
     public scheduleData: ScheduleDay[];
     constructor(private scheduleService: ScheduleService) { }
 
     ngOnInit() {
         this.loadScheduleInfo();
+        this.sportTypes = SPORT_TYPES;
         // this.scheduleData = this.scheduleService.getScheduleForPeriod(2);
     }
 
     public loadScheduleInfo(): void {
-        this.scheduleService.getScheduleForPeriod().subscribe(res => {
-            this.scheduleData = res;
-        });
+        // this.isDataLoading = true;
+        this.scheduleService.getScheduleForPeriod()
+            .subscribe(res => {
+                this.scheduleData = res;
+            });
     }
 
     public changeSportType(): void {
@@ -46,7 +50,7 @@ export class ScheduleComponent implements OnInit {
                                 .filter((event: ScheduleEvent) => event.sportType === this.currentSportType)
                         };
                     })
-                    .filter((day: ScheduleDay) => day.events.length > 0 );
+                    .filter((day: ScheduleDay) => day.events.length > 0);
             });
         }
     }

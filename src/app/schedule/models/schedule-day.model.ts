@@ -4,5 +4,6 @@ export interface ScheduleDay {
     date: string;
     dateUI?: Date;
     events: ScheduleEvent[];
+    isOpen?: boolean;
 }
 

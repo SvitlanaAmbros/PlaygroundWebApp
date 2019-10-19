@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     password: '1234',
     confirmPassword: '1234',
     isStudent: false,
-    studentTicket: 'KB111111'
+    studentTicket: undefined
   };
 
   ngOnInit() {
@@ -82,6 +82,7 @@ export class RegisterComponent implements OnInit {
         ])],
       }));
     } else {
+      this.user.studentTicket = undefined;
       this.submitted = false;
       this.t.removeAt(1);
 

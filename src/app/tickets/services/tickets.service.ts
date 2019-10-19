@@ -15,7 +15,14 @@ export class TicketsService {
   constructor(private http: HttpClient) { }
 
   public getUserEvents(userId: string): Observable<ScheduleDay[]> {
-    return this.http.get<ScheduleDay[]>(GET_USER_EVENTS + userId);
+    return this.http.get<ScheduleDay[]>(GET_USER_EVENTS + userId).pipe(
+      map((data: ScheduleDay[]) => {
+        return data.map((item: ScheduleDay) => {
+          return { ...item, dateUI: this.getDateFromString(item.date) };
+        })
+        .sort((a: ScheduleDay, b: ScheduleDay) => a.dateUI.getTime() - b.dateUI.getTime());
+      })
+    );
   }
 
   public unbookEvent(userId: string, eventId: string): Observable<any> {
@@ -24,5 +31,12 @@ export class TicketsService {
       eventId: eventId
     };
     return this.http.post(UNBOOK_EVENT, data);
+  }
+
+  public getDateFromString(date): Date {
+    const splitedDate = date.split('.');
+    const formatedDate = new Date(splitedDate[2], splitedDate[1] - 1, splitedDate[0]);
+
+    return formatedDate;
   }
 }

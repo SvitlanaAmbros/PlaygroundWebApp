@@ -23,35 +23,25 @@ export class ScheduleService {
       map((data: ScheduleDay[]) => {
         return data.map((item: ScheduleDay) => {
           return { ...item, dateUI: this.getDateFromString(item.date) };
-        });
+        })
+        .sort((a: ScheduleDay, b: ScheduleDay) => a.dateUI.getTime() - b.dateUI.getTime());
       })
     );
   }
 
   public getDateFromString(date): Date {
     const splitedDate = date.split('.');
-
-    // const day = splitedDate[0];
-    // const time = splitedDate[1];
-
-    // const splitedDayInfo = day.split('/');
-    // const splitedTime = time.split(':');
-
     const formatedDate = new Date(splitedDate[2], splitedDate[1] - 1, splitedDate[0]);
 
     return formatedDate;
   }
 
   public bookEvent(userId: string, eventId: string): Observable<any> {
-    // const params = new HttpParams()
-    //   .set('userId', userId)
-    //   .set('eventId', eventId);
-    console.log('ID', eventId);
     const data = {
       userId: userId,
       eventId: eventId
     };
+
     return this.http.post(BOOK_EVENT, data);
-    // return of('Event was successfully booked');
   }
 }

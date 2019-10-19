@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { ScheduleDay } from '@schedule/models/schedule-day.model';
 import { TicketsService } from '@tickets/services/tickets.service';
+import { map } from 'rxjs/operators/map';
 
 export const LOGIN = 'login';
 
@@ -24,6 +25,16 @@ export class TicketsComponent implements OnInit {
 
   public updateTicketsInfo(): void {
     this.tickets = this.ticketsService.getUserEvents(
-      this.localStorageService.getFromLocalStorage(LOGIN));
+      this.localStorageService.getFromLocalStorage(LOGIN)).pipe(
+        map((res: ScheduleDay[]) => res.map((day: ScheduleDay) => { return {...day, isOpen: false}}))
+      );
+  }
+
+  // public isRowOdd(ind: number): boolean {
+  //   return ind % 2 !== 0;
+  // }
+
+  public toggleTickets(day: ScheduleDay): void {
+    day.isOpen = !day.isOpen;
   }
 }

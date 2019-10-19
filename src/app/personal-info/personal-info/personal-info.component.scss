@@ -31,13 +31,16 @@
 
 .row {
     padding: 10px 0;
+    margin: 0;
 
     & span {
         padding-left: 10px;
     }
 }
 
-.form__row {
-    margin: 4px 0;
+.form {
+    &__row {
+        margin: 4px 0;
+    }
 }
 
