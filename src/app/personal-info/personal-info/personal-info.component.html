@@ -42,12 +42,11 @@
                 Editing Personal Info
               </div>
               <div class="personal-info__btns">
-                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Cancel'" [noAvailableMessage]="'Cancel'"
-                  (clicked)="cancel()"
-                  [hasBorder]="true">
+                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Cancel'"
+                  [noAvailableMessage]="'Cancel'" (clicked)="cancel()" [hasBorder]="true">
                 </app-action-btn>
-                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'" [noAvailableMessage]="'Save'"
-                  (clicked)="savePersonalInfo()" 
+                <app-action-btn *ngIf="isEdited" class="personal-info__btn" [availableMessage]="'Save'"
+                  [noAvailableMessage]="'Save'" (clicked)="savePersonalInfo()"
                   [isAvailable]="dynamicForm.valid && user.password == user.confirmPassword">
                 </app-action-btn>
               </div>
@@ -113,6 +112,36 @@
                 Password and Confirm Password must be the same
               </div>
             </div>
+
+            <input type="checkbox" formControlName="isStudent" [(ngModel)]="user.isStudent"
+              (change)="checked($event)">Student
+            <!-- start student ticket -->
+            <div *ngFor="let ticket of t.controls; let i = index">
+              <div [formGroup]="ticket">
+                <div class="form__row">
+                  <label class="form__label">Student Ticket</label>
+                  <input type="text" formControlName="studentTicket" [(ngModel)]="user.studentTicket"
+                    class="form__value">
+                  <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
+                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
+                      <div>
+                        Student ticket not right
+                      </div>
+                      <div>
+                        Example Format: 'KB123456'
+                      </div>
+                    </div>
+                    <!-- <div class="form__row">
+                      <label class="form__label">Password</label> -->
+                    <div *ngIf="ticket?.controls['studentTicket']?.errors?.required">
+                      * Student ticket is obligatory field
+                    </div>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- EOF student ticket -->
           </form>
         </div>
       </div>

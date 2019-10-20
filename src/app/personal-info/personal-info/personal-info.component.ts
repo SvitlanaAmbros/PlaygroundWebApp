@@ -17,6 +17,7 @@ export class PersonalInfoComponent implements OnInit {
     login: undefined,
     password: undefined,
     confirmPassword: undefined,
+    isStudent: false,
     studentTicket: undefined,
   };
   public isEdited = false;
@@ -46,6 +47,10 @@ export class PersonalInfoComponent implements OnInit {
   public getUserinfo(): void {
     this.userService.getBaseUserInfo().subscribe(user => {
       this.user = { ...user, confirmPassword: user.password };
+      if (user.studentTicket) {
+        this.user.isStudent = true;
+        this.checked();
+      }
       console.log('User from storage', this.user);
     });
   }
@@ -54,6 +59,9 @@ export class PersonalInfoComponent implements OnInit {
     this.toggleEditing();
 
     console.log('@@@', this.user);
+    // if (this.user.isStudent) {
+    //   this.user.studentTicket = '';
+    // }
     this.isActionPerformed = true;
     this.userService.updateUserInfo(this.user)
       .pipe(
@@ -94,8 +102,33 @@ export class PersonalInfoComponent implements OnInit {
         Validators.required,
         Validators.minLength(4)
       ])],
+      isStudent: [this.user.isStudent],
+      tickets: new FormArray([])
     });
   }
+
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.tickets as FormArray; }
+
+  public checked() {
+    if (this.user.isStudent) {
+      this.t.push(this.formBuilder.group({
+        studentTicket: [this.user.studentTicket, Validators.compose([
+          Validators.pattern('^KB[1-9]{6}$'),
+          Validators.required
+        ])],
+      }));
+    } else {
+      this.user.studentTicket = '';
+      this.submitted = false;
+      this.t.removeAt(1);
+
+      while (this.t.length !== 0) {
+        this.t.removeAt(0);
+      }
+    }
+  }
+
 
   public isFormInvalid(form: FormGroup, field): boolean {
     return form.invalid &&
