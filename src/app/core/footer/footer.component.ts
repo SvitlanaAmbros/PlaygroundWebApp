@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  public title = 'Спортивний майданчик КПІ';
+  public title = 'Playground KPI';
   constructor() { }
 
   ngOnInit() {

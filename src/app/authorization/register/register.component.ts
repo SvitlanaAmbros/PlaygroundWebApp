@@ -19,7 +19,7 @@ import { UserInfo } from '@shared/models/user-info.model';
 export class RegisterComponent implements OnInit {
   public dynamicForm: FormGroup;
   public submitted = false;
-  public isActionPerformed  = false;
+  public isActionPerformed = false;
   public passwordIsEqual = true;
 
   constructor(private router: Router,
@@ -30,11 +30,11 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   user: UserInfo = {
-    name: 'user',
-    surname: 'someuser',
-    login: 'ksajkja@gmail.com',
-    password: '1234',
-    confirmPassword: '1234',
+    name: '',
+    surname: '',
+    login: '',
+    password: '',
+    confirmPassword: '',
     isStudent: false,
     studentTicket: undefined
   };
@@ -45,26 +45,41 @@ export class RegisterComponent implements OnInit {
 
   private initializeForm(): void {
     this.dynamicForm = this.formBuilder.group({
-      name: [this.user.name, Validators.compose([
-        Validators.pattern('^[a-zA-Z]{2,}$'),
-        Validators.required
-      ])],
-      surname: [this.user.surname, Validators.compose([
-        Validators.pattern('^[a-zA-Z]{2,}$'),
-        Validators.required
-      ])],
-      email: [this.user.login, Validators.compose([
-        Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
-        Validators.required
-      ])],
-      password: [this.user.password, Validators.compose([
-        Validators.required,
-        Validators.minLength(4)
-      ])],
-      confirmPassword: [this.user.confirmPassword, Validators.compose([
-        Validators.required,
-        Validators.minLength(4)
-      ])],
+      name: [this.user.name, {
+        validators: Validators.compose([
+          Validators.pattern('^[a-zA-Z]{2,}$'),
+          Validators.required
+        ]),
+        updateOn: 'blur'
+      }],
+      surname: [this.user.surname, {
+        validators: Validators.compose([
+          Validators.pattern('^[a-zA-Z]{2,}$'),
+          Validators.required
+        ]),
+        updateOn: 'blur'
+      }],
+      email: [this.user.login, {
+        validators: Validators.compose([
+          Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
+          Validators.required,
+        ]),
+        updateOn: 'blur'
+      }],
+      password: [this.user.password, {
+        validators: Validators.compose([
+          Validators.required,
+          Validators.minLength(4)
+        ]),
+        updateOn: 'blur'
+      }],
+      confirmPassword: [this.user.confirmPassword, {
+        validators: Validators.compose([
+          Validators.required,
+          // Validators.minLength(4)
+        ]),
+        // updateOn: 'blur'
+      }],
       isStudent: [this.user.isStudent],
       tickets: new FormArray([])
     });
@@ -76,10 +91,14 @@ export class RegisterComponent implements OnInit {
   public checked() {
     if (this.user.isStudent) {
       this.t.push(this.formBuilder.group({
-        studentTicket: [this.user.studentTicket, Validators.compose([
-          Validators.pattern('^KB[1-9]{6}$'),
-          Validators.required
-        ])],
+        studentTicket: [this.user.studentTicket,
+        {
+          validators: Validators.compose([
+            Validators.pattern('^KB[0-9]{8}$'),
+            Validators.required
+          ]),
+          // updateOn: 'blur'
+        }],
       }));
     } else {
       this.user.studentTicket = undefined;
@@ -102,25 +121,25 @@ export class RegisterComponent implements OnInit {
 
     this.isActionPerformed = true;
     this.authService.register(this.user)
-    .pipe(
-      finalize(() => this.isActionPerformed = false)
-    )
-    .subscribe(
-      (res: UserInfo) => {
-        console.log(res);
-        this.localStorage.saveUserInfoInLocalStorage(res);
-        this.router.navigateByUrl('schedule');
-        this.userService.updateUserInfo(res);
-      },
-      err => {
-        this.notification.error(WRONG_LOGIN);
-      }
-    );
+      .pipe(
+        finalize(() => this.isActionPerformed = false)
+      )
+      .subscribe(
+        (res: UserInfo) => {
+          console.log(res);
+          this.localStorage.saveUserInfoInLocalStorage(res);
+          this.router.navigateByUrl('schedule');
+          this.userService.updateUserInfo(res);
+        },
+        err => {
+          this.notification.error(WRONG_LOGIN);
+        }
+      );
   }
 
   public focusOutFunction(): void {
     // this.user.password === this.user.confirmPassword ?
     //     this.passwordIsEqual = true : this.passwordIsEqual = false;
-    // console.log('!!', this.user.password !== this.user.confirmPassword);
+    console.log('!!', this.user.password, this.user.confirmPassword);
   }
 }

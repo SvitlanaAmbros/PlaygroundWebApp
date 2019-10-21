@@ -17,9 +17,6 @@ export class ScheduleService {
   constructor(private http: HttpClient) { }
 
   public getScheduleForPeriod(sportType: string): Observable<ScheduleDay[]> {
-    // const params = new HttpParams()
-    //   .set('day', day.toString());
-    // return of(schedule)
     if (sportType !== 'All') {
       return this.http.get<ScheduleDay[]>(GET_SCHEDULE_FOR_PERIOD).pipe(
         map((data: ScheduleDay[]) => {
@@ -42,7 +39,8 @@ export class ScheduleService {
       map((data: ScheduleDay[]) => {
         return data.map((item: ScheduleDay) => {
           return { ...item, dateUI: this.getDateFromString(item.date) };
-        });
+        })
+        .sort((a: ScheduleDay, b: ScheduleDay) => a.dateUI.getTime() - b.dateUI.getTime());
       })
     );
   }

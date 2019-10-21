@@ -60,3 +60,11 @@ button {
     color: #000;
     text-align: center;
 }
+
+.error-message {
+    color: $error-color;
+}
+
+.warning-message {
+    color: $info-color;
+}

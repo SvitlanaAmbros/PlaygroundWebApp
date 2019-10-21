@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
   public isActionPerformed = false;
 
   public user: LoginUserInfo = {
-    login: 'qweqwe@gmail.com',
-    password: 'qweqwe'
+    login: '',
+    password: ''
   };
 
   constructor(private router: Router,
@@ -39,14 +39,20 @@ export class LoginComponent implements OnInit {
 
   public initializeForm(): void {
     this.dynamicForm = this.formBuilder.group({
-      login: [this.user.login, Validators.compose([
-        Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
-        Validators.required
-      ])],
-      password: [this.user.password, Validators.compose([
-        Validators.required,
-        Validators.minLength(4)
-      ])],
+      login: [this.user.login, {
+        validators: Validators.compose([
+          Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}$'),
+          Validators.required,
+        ]),
+        updateOn: 'blur'
+      }],
+      password: [this.user.password, {
+        validators: Validators.compose([
+          Validators.required,
+          // Validators.minLength(4)
+        ]),
+        // updateOn: 'blur'
+      }]
     });
   }
 

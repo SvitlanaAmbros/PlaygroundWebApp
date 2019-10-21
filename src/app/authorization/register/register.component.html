@@ -4,7 +4,7 @@
     <div class="form__row">
       <label class="form__label">Name</label>
       <input type="text" formControlName="name" [(ngModel)]="user.name" class="form__value">
-      <div *ngIf="isFormInvalid(dynamicForm, 'name')">
+      <div *ngIf="isFormInvalid(dynamicForm, 'name')" class="error-message">
         <div *ngIf="dynamicForm?.controls['name']?.errors?.pattern">
           Name should contain alphabetic characters
         </div>
@@ -16,7 +16,7 @@
     <div class="form__row">
       <label class="form__label">Surname</label>
       <input type="text" formControlName="surname" [(ngModel)]="user.surname" class="form__value">
-      <div *ngIf="isFormInvalid(dynamicForm, 'surname')">
+      <div *ngIf="isFormInvalid(dynamicForm, 'surname')" class="error-message">
         <div *ngIf="dynamicForm?.controls['surname']?.errors?.pattern">
           Surname should contain alphabetic characters
         </div>
@@ -28,7 +28,7 @@
     <div class="form__row">
       <label class="form__label">Email</label>
       <input type="text" formControlName="email" [(ngModel)]="user.login" class="form__value">
-      <div *ngIf="isFormInvalid(dynamicForm, 'email')">
+      <div *ngIf="isFormInvalid(dynamicForm, 'email')" class="error-message">
         <div *ngIf="dynamicForm?.controls['email']?.errors?.pattern">
           Not right email format
         </div>
@@ -40,7 +40,7 @@
     <div class="form__row">
       <label class="form__label">Password</label>
       <input type="password" formControlName="password" [(ngModel)]="user.password" class="form__value">
-      <div *ngIf="isFormInvalid(dynamicForm, 'password')">
+      <div *ngIf="isFormInvalid(dynamicForm, 'password')" class="error-message">
         <div *ngIf="dynamicForm?.controls['password']?.errors?.minlength">
           Password must be at least 3 characters long.
         </div>
@@ -56,15 +56,15 @@
         (ngModelChange)="focusOutFunction()"
         [(ngModel)]="user.confirmPassword" 
         class="form__value">
-      <div *ngIf="isFormInvalid(dynamicForm, 'confirmPassword')">
-        <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.minlength">
+      <div *ngIf="isFormInvalid(dynamicForm, 'confirmPassword')" class="error-message">
+        <!-- <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.minlength">
           Confirm Password must be at least 3 characters long.
-        </div>
+        </div> -->
         <div *ngIf="dynamicForm?.controls['confirmPassword']?.errors?.required">
           * Confirm Password is obligatory field
         </div>
       </div>
-      <div *ngIf="!passwordIsEqual">
+      <div *ngIf="user.password !== user.confirmPassword" class="warning-message">
         Password and Confirm Password must be the same
       </div>
     </div>
@@ -80,19 +80,16 @@
             formControlName="studentTicket" 
             [(ngModel)]="user.studentTicket"
             class="form__value">
-          <div *ngIf="isFormInvalid(ticket, 'studentTicket')">
+          <div *ngIf="isFormInvalid(ticket, 'studentTicket')" class="error-message">
             <div *ngIf="ticket?.controls['studentTicket']?.errors?.pattern">
               <div>
-                Student ticket not right
-              </div>
-              <div>
-                Example Format: 'KB123456'
+                Example Format: 'KB12345678'
               </div>
             </div>
             <!-- <div class="form__row">
             <label class="form__label">Password</label> -->
             <div *ngIf="ticket?.controls['studentTicket']?.errors?.required">
-              * Student ticket is obligatory field
+              * Student ticket is obligatory field, if you chose what you are student
             </div>
             <!-- </div> -->
           </div>
